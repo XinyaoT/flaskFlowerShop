@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>商品详情页</title>
+		<link rel="stylesheet" type="text/css" href="../static/font/iconfont/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="../static/frame/swiper/css/swiper.min.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/js_sku.css">
+		  <!-- slider stylesheet -->
+		  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+		  <!-- bootstrap core css -->
+		  <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css" />
+		
+		  <!-- fonts style -->
+		  <link href="https://fonts.googleapis.com/css?family=Baloo+Chettan|Poppins:400,600,700&display=swap" rel="stylesheet">
+		  <!-- Custom styles for this template -->
+		  <link href="../static/css/style.css" rel="stylesheet" />
+		  <!-- responsive style -->
+		  <link href="../static/css/responsive.css" rel="stylesheet" />
+	</head>
+
+	<body background="../static/img/back.jpg">
+		<header class="header_section">
+			<div class="container">
+			  <nav class="navbar navbar-expand-lg custom_nav-container ">
+				<a class="navbar-brand" href="index.html">
+				  <span>
+					Fior
+				  </span>
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				  <span class="navbar-toggler-icon"></span>
+				</button>
+	  
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				  <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
+					<ul class="navbar-nav  ">
+					  <li class="nav-item active">
+						<a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+					  </li>
+					  <li class="nav-item">
+						<a class="nav-link" href="about.html"> About</a>
+					  </li>
+					  <li class="nav-item">
+						<a class="nav-link" href="gallery.html"> Gallery </a>
+					  </li>
+					  <li class="nav-item">
+						<a class="nav-link" href="contact.html">Contact us</a>
+					  </li>
+					</ul>
+				  </div>
+	
+				  
+				
+				   
+				
+				</div>
+			  </nav>
+			</div>
+		  </header>
+
+			
+		  
+			 
+		  
+		  </div>
+		<div class="container">
+			<div class="sku_box" id="panel">
+				<a class="sku_pop_close iconfont icon-guanbi" href="javascript:void(0)"></a>
+				<div class="sku_main">
+					<div class="sku_left">
+						<div class="gallery_top_box">
+							<div class="swiper-container gallery_top">
+								<div class="swiper-wrapper">
+									<div class="swiper-slide">
+										<img :src="../static/skus_list.img">
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="gallery_thumbs_box">
+							<div class="swiper-container gallery_thumbs">
+								<div class="swiper-wrapper">
+									<div class="swiper-slide">
+										<img src="../static/img/s1.jpg">
+									</div>
+								</div>
+								<div class="swiper-button-next swiper-button-white iconfont icon-youbian"></div>
+								<div class="swiper-button-prev swiper-button-white iconfont icon-xiangzuo"></div>
+							</div>
+						</div>
+					</div>
+					<div class="sku_right">
+						<div class="product_title" id="goods_name"></div>
+						<div class="product_star_box">
+							<div class="product_star_text">评价</div>
+							<div class="product_star">
+								<i class="iconfont icon-wuxing"></i>
+								<i class="iconfont icon-wuxing"></i>
+								<i class="iconfont icon-wuxing"></i>
+								<i class="iconfont icon-wuxing"></i>
+								<i class="iconfont icon-wuxing"></i>
+							</div>
+						</div>
+						<div class="product_price_box">
+							<div class="product_img">
+								<!--<img src="" alt="">-->
+							</div>
+							<div class="product_price_left">
+								<div class="price_box price_xyj">
+									<span class="price_name">协议价</span>
+									<span class="price_sign">￥</span>
+									<span class="price_money" id="price">0</span>
+									<span class="price_old_money">[￥<span class="price_old_money" id="market_price">0</span>]</span>
+									
+								</div>
+								<div class="price_box price_yxj">
+									<span class="price_name">营销价</span>
+									<span class="price_sign">￥</span>
+									<span class="price_money" id="agreement_price">0</span>
+								</div>
+							</div>
+							<div class="product_price_right">
+								<div class="sales_box">
+									<span class="sales_name">已售出</span>
+									<span class="sales_num" id="sold_num">0</span>
+								</div>
+								<div class="sales_box">
+									<span class="sales_name sales_kc">库存</span>
+									<span class="sales_num" id="stock">0</span>
+								</div>
+							</div>
+						</div>
+						<div class="product_sku_box">
+							<div class="product_main">
+								<div class="product_con">
+									<div id="skuList"></div>
+								</div>
+							</div>
+						</div>
+						<div class="button">
+							<button class="button-36">加入购物车</button>
+							<button class="button-38">立即购买</button>
+						</div>
+						
+
+
+
+					</div>
+				</div>
+				<div class="sku_con">
+					<div class="xq_title">商品详情</div>
+					<div class="product_con_box" id="goods_details">
+						<!--商品详情-->
+					</div>
+				</div>
+			</div>
+		</div>
+
+        <script src="../static/js/jquery.min.js"></script>
+		<script src="../static/frame/swiper/js/swiper.min.js"></script>
+		<script src="../static/js/data.js"></script>
+		<script src="../static/js/js_sku.js"></script>
+	</body>
+
+</html>

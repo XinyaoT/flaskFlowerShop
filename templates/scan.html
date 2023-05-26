@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品浏览页面</title>
+    <link rel="stylesheet" href="../static/css/base.css">
+    <script src="../static/js/jquery.min.js"></script>
+    <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Baloo+Chettan|Poppins:400,600,700&display=swap" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="../static/css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="../static/css/responsive.css" rel="stylesheet" />
+  <link href="../static/css/scan_style.css" rel="stylesheet" />
+    
+</head>
+<body background="../static/img/background.jpg">
+    <header class="header_section">
+        <div class="container">
+          <nav class="navbar navbar-expand-lg custom_nav-container ">
+            <a class="navbar-brand" href="index.html">
+              <span>
+                Fior
+              </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+  
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <div》 class="d-flex mx-auto flex-column flex-lg-row align-items-center">
+                <ul class="navbar-nav  ">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="about.html"> About</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="gallery.html"> Gallery </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact us</a>
+                  </li>
+                </ul>
+            </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+
+
+      <div class="cation-content">
+        <div style="height:50px"></div> <!-- 可以删除 -->
+        <div class="cation-middle">
+            <dl class="cation-list">
+                <dt>分类</dt>
+                <dd>
+                    <a href="#" rel="" name="mode" class="all on">全部</a>
+                    <a href="#" rel="服装鞋包" name="mode" class="default">服装鞋包</a>
+                    <a href="#" rel="家电数码" name="mode" class="default">家电数码</a>
+                    <a href="#" rel="英文外贸" name="mode" class="default">英文外贸</a>
+                    <a href="#" rel="综合通用" name="mode" class="default">综合通用</a>
+                    <a href="#" rel="食品保健" name="mode" class="default">食品保健</a>
+                    <a href="#" rel="团购模板" name="mode" class="default">团购模板</a>
+                    <a href="#" rel="美容护肤" name="mode" class="default">美容护肤</a>
+                    <a href="#" rel="珠宝饰品" name="mode" class="default">珠宝饰品</a>
+                    <a href="#" rel="鲜花礼品" name="mode" class="default">鲜花礼品</a>
+                    <a href="#" rel="童装母婴" name="mode" class="default">童装母婴</a>
+                </dd>
+            </dl>
+            <dl class="cation-list">
+                <dt>主题</dt>
+                <dd>
+                    <a href="#" rel="" name="theme" class="all on">全部</a>
+                    <a href="#" rel="古典雅致" name="theme" class="default">古典雅致</a>
+                    <a href="#" rel="可爱温馨" name="theme" class="default">可爱温馨</a>
+                    <a href="#" rel="时尚简约" name="theme" class="default">时尚简约</a>
+                    <a href="#" rel="潮流酷炫" name="theme" class="default">潮流酷炫</a>
+                    <a href="#" rel="节日庆典" name="theme" class="default">节日庆典</a>
+                </dd>
+            </dl>
+            <dl class="cation-list">
+                <dt>色系</dt>
+                <dd>
+                    <a href="#" rel="" name="system" class="all on">全部</a>
+                    <a href="#" rel="多彩" name="system" class="default">多彩</a>
+                    <a href="#" rel="橙色" name="system" class="default">橙色</a>
+                    <a href="#" rel="粉色" name="system" class="default">粉色</a>
+                    <a href="#" rel="红色" name="system" class="default">红色</a>
+                    <a href="#" rel="绿色" name="system" class="default">绿色</a>
+                    <a href="#" rel="蓝色" name="system" class="default">蓝色</a>
+                    <a href="#" rel="黑色" name="system" class="default">黑色</a>
+                </dd>
+            </dl>
+            <dl class="cation-list">
+                <dt>价格</dt>
+                <dd>
+                    <a href="#" rel="" name="price" class="all on">全部</a>
+                    <a href="#" rel="2000 - 6000" name="price" class="default">2000 - 6000</a>
+                    <a href="#" rel="6000 - 10000" name="price" class="default">6000 - 10000 </a>
+                    <a href="#" rel="10000 - 14000" name="price" class="default">10000 - 14000 </a>
+                    <a href="#" rel="18000 - 22000" name="price" class="default">18000 - 22000</a>
+                    <a href="#" rel="26000 - 30000" name="price" class="default">26000 - 30000</a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        $(function(){
+            new SelectTag({
+                child: ".default", /*所有默认*/
+                over: 'on', /*当前选中*/
+                all: ".all" /*默认全部*/
+            });
+        })
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div id="goods">
+    <div class="goodsItem">
+        <ul class="goditem">
+            <li class="godpic"><img src="../static/img/1.png"></li>
+            <li class="godprice">￥25.00</li>
+            <li class="godinfo">《飞鸟集》中很多诗歌是用孟加拉文创作的，这部诗集最早由郑振铎先生译介到中国。</li>
+            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
+        </ul>
+    </div>
+    <div class="goodsItem">
+        <ul class="goditem">
+            <li class="godpic"><img src="../static/img/3.png"></li>
+            <li class="godprice">￥56.00</li>
+            <li class="godinfo">本书主要介绍了如何使用现有的Web 相关技术构建Android 应用程序。</li>
+            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
+        </ul>
+    </div>
+    <div class="goodsItem">
+        <ul class="goditem">
+            <li class="godpic"><img src="../static/img/3.png"></li>
+            <li class="godprice">￥56.00</li>
+            <li class="godinfo">本书主要介绍了如何使用现有的Web 相关技术构建Android 应用程序。</li>
+            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
+        </ul>
+    </div>
+    <div class="goodsItem">
+        <ul class="goditem">
+            <li class="godpic"><img src="../static/img/3.png"></li>
+            <li class="godprice">￥56.00</li>
+            <li class="godinfo">本书主要介绍了如何使用现有的Web 相关技术构建Android 应用程序。</li>
+            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
+        </ul>
+    </div>
+    <div class="goodsItem">
+        <ul class="goditem">
+            <li class="godpic"><img src="../static/img/3.png"></li>
+            <li class="godprice">￥56.00</li>
+            <li class="godinfo">本书主要介绍了如何使用现有的Web 相关技术构建Android 应用程序。</li>
+            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
+        </ul>
+    </div>
+    <div class="goodsItem">
+        <ul class="goditem">
+            <li class="godpic"><img src="../static/img/2.png"></li>
+            <li class="godprice">￥37.00</li>
+            <li class="godinfo">用文字打败时间。冯唐最畅销作品，杂文才是其销量最好、最受欢迎的作品。</li>
+            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
+        </ul>
+    </div>
+    <div class="goodsItem">
+        <ul class="goditem">
+            <li class="godpic"><img src="../static/img/05.jpg"></li>
+            <li class="godprice">￥25.00</li>
+            <li class="godinfo">《飞鸟集》中很多诗歌是用孟加拉文创作的，这部诗集最早由郑振铎先生译介到中国。</li>
+            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
+        </ul>
+    </div>
+    <div class="goodsItem">
+        <ul class="goditem">
+            <li class="godpic"><img src="../static/img/1.jpg"></li>
+            <li class="godprice">￥56</li>
+            <li class="godinfo">本书主要介绍了如何使用现有的Web 相关技术构建Android 应用程序。</li>
+            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
+        </ul>
+    </div>
+    <div class="goodsItem">
+        <ul class="goditem">
+            <li class="godpic"><img src="../static/img/1.jpg"></li>
+            <li class="godprice">￥37.00</li>
+            <li class="godinfo">用文字打败时间。冯唐最畅销作品,杂文才是其销量最好、最受欢迎的作品。</li>
+            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
+        </ul>
+    </div>
+    <div class="goodsItem">
+        <ul class="goditem">
+            <li class="godpic"><img src="../static/img/2.png"></li>
+            <li class="godprice">￥37.00</li>
+            <li class="godinfo">用文字打败时间。冯唐最畅销作品，杂文才是其销量最好、最受欢迎的作品。</li>
+            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
+        </ul>
+    </div>
+    <div class="goodsItem">
+        <ul class="goditem">
+            <li class="godpic"><img src="../static/img/1.jpg"></li>
+            <li class="godprice">￥37.00</li>
+            <li class="godinfo">用文字打败时间。冯唐最畅销作品,杂文才是其销量最好、最受欢迎的作品。</li>
+            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
+        </ul>
+    </div>
+    <div class="goodsItem">
+        <ul class="goditem">
+            <li class="godpic"><img src="../static/img/1.jpg"></li>
+            <li class="godprice">￥56</li>
+            <li class="godinfo">本书主要介绍了如何使用现有的Web 相关技术构建Android 应用程序。</li>
+            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
+        </ul>
+    </div>
+
+</div>
+
+<div id="godcar">
+    <div class="dnum">0</div>
+    <div class="dcar">
+        <img src="../static/img/shop.png">
+    </div>
+</div>
+
+</body>
+
+<script>
+
+    //首先需要获取到商品的图片，然后将获取到的图片复制一份；
+
+
+        var i = 0;
+        var inum = 0;
+        if(localStorage.getItem("inum")!==null){
+            inum = localStorage.getItem("inum");
+        }
+        $(".dnum").text(inum);
+
+        $(".godadd").click(function(){
+            if (!$(this).find("a").hasClass("bg")) {
+                i++;
+                $(this).find("a").addClass("bg");
+
+               // 首先需要获取到商品的图片，然后将获取到的图片复制一份；
+                var img = $(this).parent().find(".godpic").find("img");
+                var cimg = img.clone();
+               // 得到商品图片的top和left值，购物车的top和left值，这样才可以通过animate函数实现移动
+                var imgtop = img.offset().top;
+                var imgleft = img.offset().left;
+                var cartop = $("#godcar").offset().top;
+                var carleft = $("#godcar").offset().left;
+
+               // 编写animate函数，实现具体的效果；
+                cimg.appendTo($("body")).css({
+                    "position": "absolute",
+                    "opacity": "0.7",
+                    "top": imgtop,
+                    "left": imgleft
+                }).animate({
+                    "top": cartop,
+                    "left": carleft,
+                    "width": "40px",
+                    "height": "40px",
+                    "opacity": "0.3"
+                }, 1000, function () {
+                    cimg.remove();//图片消失
+                    $(".dnum").text(i);//购物车数量变化
+                    localStorage.setItem("inum", i);
+                });
+            }
+
+        });
+
+
+
+
+
+
+
+
+
+</script>
+</html>
