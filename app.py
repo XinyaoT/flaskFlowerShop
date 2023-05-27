@@ -1,6 +1,8 @@
 import os
 
 from flask import Flask
+
+import config
 from blueprint.clientOrders import bp as orders_client_bp
 from blueprint.clientAddress import bp as address_client_bp
 from blueprint.clientShoppingcart import bp as shoppingcart_client_bp
@@ -16,6 +18,7 @@ app.register_blueprint(address_client_bp)
 app.register_blueprint(shoppingcart_client_bp)
 app.register_blueprint(client_bp)
 app.register_blueprint(admin_bp)
+app.config.from_object(config)
 
 @app.route('/')
 def hello_world():  # put application's code here

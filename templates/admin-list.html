@@ -58,24 +58,26 @@
                                       <input type="checkbox" lay-filter="checkall" name="" lay-skin="primary">
                                     </th>
                                     <th>ID</th>
-                                    <th>用户名</th>
+                                    <th>密码</th>
                                     <th>性别</th>
                                     <th>手机</th>
+                                    <th>用户名</th>
                                     </tr>
                                 </thead>
 
 
 
                                     <tbody>
-                                        {% for row in rows %}
+                                        {% for row in content %}
                                         <tr>
                                             <td>
-                                                <input type="checkbox" name="id" value="{{ row[0] }}" lay-skin="primary">
+                                                <input type="checkbox" name=""  lay-skin="primary">
                                             </td>
                                             <td>{{ row[0] }}</td>
                                             <td>{{ row[1] }}</td>
                                             <td>{{ row[2] }}</td>
                                             <td>{{ row[3] }}</td>
+                                            <td>{{ row[4] }}</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
