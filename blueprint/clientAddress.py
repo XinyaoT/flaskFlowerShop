@@ -4,10 +4,11 @@
 # @Author  : Smalltown
 # @FileName: clientAddress.py
 # @Software: PyCharm
-from flask import Blueprint
+from flask import Blueprint,session
 
 bp = Blueprint('clientAddress',__name__,url_prefix='/client/address')  #http://127.0.0.1/client/address/
 
 @bp.route('/add')
 def addAddress():
-    pass
+    user_id = session.get("client_id")
+    return user_id

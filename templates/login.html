@@ -13,23 +13,28 @@
             <div class="pinkbox">
                 <div class="signup nodisplay">
                     <h1>注册</h1>
-                    <form autocomplete="off">
-                        <input type="text" placeholder="用户名">
-                        <input type="email" placeholder="email">
-                        <input type="password" placeholder="密码">
-                        <input type="password" placeholder="确认密码">
-                        <button class="button submit">创建账号 </button>
+                    <form autocomplete="off" method="post" action="{{ url_for('client.clientLogin') }}">
+                        <input type="hidden" name="action" value="register">
+                        <input type="text" name="client_name" placeholder="用户名">
+                        <input type="password" placeholder="密码"name="client_password">
+                        <input type="password" placeholder="确认密码"name="client_password">
+
+                        <input type="text" placeholder="电话号码"name="client_phone">
+                        <div class="checkbox"><input type="checkbox" name="client_sex" value="F" checked="checked"/>女生
+                        <input type="checkbox" name="client_sex" value="M" />男生</div>
+                        <button class="button submit">创建账户 </button>
                     </form>
                 </div>
-                <div class="signin">
+               <div class="signin">
                     <h1>登录</h1>
-                    <form class="more-padding" autocomplete="off">
-                        <input type="text" placeholder="用户名">
-                        <input type="password" placeholder="密码">
+                    <form class="more-padding" autocomplete="off" method="post" action="{{ url_for('client.clientLogin') }}">
+                        <input type="hidden" name="action" value="login">
+                        <input type="text" placeholder="用户ID" name="client_id">
+                        <input type="password" placeholder="密码" name="client_password">
                         <div class="checkbox">
                             <input type="checkbox" id="remember" /><label for="remember">记住我</label>
                         </div>
-                        <button class="button submit"><a href="index.html">登录</a></button>
+                        <button class="button submit" type="submit">登录</button>
                         
                     </form>
                 </div>
