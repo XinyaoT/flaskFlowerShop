@@ -5,12 +5,9 @@
 # @FileName: shoppingcart_func.py
 # @Software: PyCharm
 
-import shoppingcart_utils as shopping
+import function.function_txy.shopping.shoppingcart_utils as shopping
 
-def fun_addshoppingcart(cart_id, user_id, flower_name, wholemoney, add_flower_num, cursor, conn):
-
-    #          获取用户选择的花在flower表中的id
-    flower_id = shopping.getFlower_flowerid(cursor, flower_name)
+def fun_addshoppingcart(cart_id, user_id, flower_id, wholemoney, add_flower_num, cursor, conn):
 
     #         获取flower表中原有的flower_num的值
     old_num = shopping.getFlower_flowernum(cursor, flower_id)
@@ -35,9 +32,12 @@ def fun_addshoppingcart(cart_id, user_id, flower_name, wholemoney, add_flower_nu
     data5 = (cart_id, flower_id)
     shopping.addContain(conn=conn, cursor=cursor, data=data5)
 
-def fun_can_add_or_not(cursor, flower_name, add_flower_num):
-    #          获取用户选择的花在flower表中的id
-    flower_id = shopping.getFlower_flowerid(cursor, flower_name)
+def getWholeMoney(cursor, flower_id):
+    return shopping.getShoppingcart_wholeMoney(cursor=cursor,flower_id=flower_id)
+
+
+def fun_can_add_or_not(cursor, flower_id, add_flower_num):
+
 
     # # #######################test#################################################################
     # sql_flower_id = "SELECT Flower_id FROM flower where Flower_Name= %s"

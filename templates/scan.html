@@ -154,7 +154,8 @@
             <li class="godname"><img src="../static/images/tulip.png" height="25">{{ product.flower_name }}/{{ product.flower_mean }}</li>
             <li class="godprice">￥{{ product.flower_exPrice }}</li>
             <li class="godinfo"><a>销量：</a>{{ product.flower_sale }}</li>
-            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
+             <li class="godinfo"><a>库存：</a>{{ product.flower_num }}</li>
+            <li class="godadd"><a href="{{ url_for("clientShoppingcart.addShppingcart", flower_id= product.flower_id )}}">加入购物车</a></li>
         </ul>
     </div>
     {% endfor %}
@@ -165,7 +166,7 @@
     <div class="dnum">0</div>
     <div class="dcar">
 
-        <a href="cart.html"><img src="../static/img/shop.png"></a>
+        <a href="{{ url_for("scan.get_shoppingcart" )}}"><img src="../static/img/shop.png"></a>
     </div>
 </div>
 

@@ -46,9 +46,9 @@ def getFlower_flowernum(cursor,flower_id):
     cursor.execute(sql_flower_num, flower_id)
     return cursor.fetchone()[0]
 
-def getFlower_flowerid(cursor,flower_name):
-    sql_flower_id = "SELECT flower_id FROM flower where flower_name= %s "
-    cursor.execute(sql_flower_id, flower_name)
+def getFlower_flowername(cursor,flower_id):
+    sql_flower_id = "SELECT flower_name FROM flower where flower_id= %s "
+    cursor.execute(sql_flower_id, flower_id)
     return cursor.fetchone()[0]
 
 def getFlower_flowersale(cursor,flower_id):
@@ -61,6 +61,10 @@ def getShoppingcart_add_flower_num(cursor,cart_id):
     cursor.execute(sql, cart_id)
     return cursor.fetchone()[0]
 
+def getShoppingcart_wholeMoney(cursor,flower_id):
+    sql = "SELECT flower_exPrice FROM flower where flower_id= %s "
+    cursor.execute(sql, flower_id)
+    return cursor.fetchone()[0]
 
 def deleteContain(cursor, conn, data):
     sql = "DELETE FROM contain WHERE cart_id = %s and flower_id = %s"

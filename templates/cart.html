@@ -157,7 +157,7 @@
         position: relative;
     }
 </style>
-<body background="../static/img/hero.png">
+<body style="background: url('../static/img/back.jpg')">
 
     <header class="header_section">
         <div class="container">
@@ -300,34 +300,36 @@
 <script src="../static/js/jquery-1.10.2.js"></script>
 <script src="../static/js/bootstrap-3.3.4.js"></script>
 <script type="text/javascript">
-    var goodsList = [{
-        id: 1234564876,
-        imgUrl: 'img/1.png',
-        goodsInfo: '号地块健身房回复的科技示范户快速坚实的看了看大家发快递了很费劲的开始放假',
-        goodsParams: '四季度后付款的酸辣粉',
-        price: 199,
-        goodsCount: 1,
-        singleGoodsMoney: 199
-    },
-        {
-            id: 1234564876,
-            imgUrl: 'img/2.png',
-            goodsInfo: '号地块健身房回复的科技示范户快速坚实的看了看大家发快递了很费劲的开始放假',
-            goodsParams: '四季度后付款的酸辣粉',
-            price: 299,
-            goodsCount: 2,
-            singleGoodsMoney: 598
-        },
-        {
-            id: 1234564876,
-            imgUrl: 'img/3.png',
-            goodsInfo: '号地块健身房回复的科技示范户快速坚实的看了看大家发快递了很费劲的开始放假',
-            goodsParams: '四季度后付款的酸辣粉',
-            price: 399,
-            goodsCount: 1,
-            singleGoodsMoney: 399
-        }
-    ]
+    var goodsList = {{ results_json|safe }};
+     // 在这里处理接收到的 JSON 数据
+        console.log(jsonData);
+    {#    [{#}
+    {#    imgUrl: 'img/1.png',#}
+    {#    goodsInfo: '号地块健身房回复的科技示范户快速坚实的看了看大家发快递了很费劲的开始放假',#}
+    {#    goodsParams: '四季度后付款的酸辣粉',#}
+    {#    price: 199,#}
+    {#    goodsCount: 1,#}
+    {#    singleGoodsMoney: 199#}
+    {#,#}
+    {#    {#}
+    {#        id: 1234564876,#}
+    {#        imgUrl: 'img/2.png',#}
+    {#        goodsInfo: '号地块健身房回复的科技示范户快速坚实的看了看大家发快递了很费劲的开始放假',#}
+    {#        goodsParams: '四季度后付款的酸辣粉',#}
+    {#        price: 299,#}
+    {#        goodsCount: 2,#}
+    {#        singleGoodsMoney: 598#}
+    {#    },#}
+    {#    {#}
+    {#        id: 1234564876,#}
+    {#        imgUrl: 'img/3.png',#}
+    {#        goodsInfo: '号地块健身房回复的科技示范户快速坚实的看了看大家发快递了很费劲的开始放假',#}
+    {#        goodsParams: '四季度后付款的酸辣粉',#}
+    {#        price: 399,#}
+    {#        goodsCount: 1,#}
+    {#        singleGoodsMoney: 399#}
+    {#    }#}
+    {#]#}
     var deleteGoods = null
     loadGoods()
 
