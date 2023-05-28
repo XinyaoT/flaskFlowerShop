@@ -36,7 +36,7 @@
             </button>
   
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <div》 class="d-flex mx-auto flex-column flex-lg-row align-items-center">
+              <div> class="d-flex mx-auto flex-column flex-lg-row align-items-center">
                 <ul class="navbar-nav  ">
                   <li class="nav-item active">
                     <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
@@ -143,110 +143,28 @@
 
 
 
-      <div id="goods">
-    <div class="goodsItem">
-        <ul class="goditem">
-            <li class="godpic"><img src="../static/img/1.png"></li>
-            <li class="godprice">￥25.00</li>
-            <li class="godinfo">《飞鸟集》中很多诗歌是用孟加拉文创作的，这部诗集最早由郑振铎先生译介到中国。</li>
-            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
-        </ul>
-    </div>
-    <div class="goodsItem">
-        <ul class="goditem">
-            <li class="godpic"><img src="../static/img/3.png"></li>
-            <li class="godprice">￥56.00</li>
-            <li class="godinfo">本书主要介绍了如何使用现有的Web 相关技术构建Android 应用程序。</li>
-            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
-        </ul>
-    </div>
-    <div class="goodsItem">
-        <ul class="goditem">
-            <li class="godpic"><img src="../static/img/3.png"></li>
-            <li class="godprice">￥56.00</li>
-            <li class="godinfo">本书主要介绍了如何使用现有的Web 相关技术构建Android 应用程序。</li>
-            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
-        </ul>
-    </div>
-    <div class="goodsItem">
-        <ul class="goditem">
-            <li class="godpic"><img src="../static/img/3.png"></li>
-            <li class="godprice">￥56.00</li>
-            <li class="godinfo">本书主要介绍了如何使用现有的Web 相关技术构建Android 应用程序。</li>
-            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
-        </ul>
-    </div>
-    <div class="goodsItem">
-        <ul class="goditem">
-            <li class="godpic"><img src="../static/img/3.png"></li>
-            <li class="godprice">￥56.00</li>
-            <li class="godinfo">本书主要介绍了如何使用现有的Web 相关技术构建Android 应用程序。</li>
-            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
-        </ul>
-    </div>
-    <div class="goodsItem">
-        <ul class="goditem">
-            <li class="godpic"><img src="../static/img/2.png"></li>
-            <li class="godprice">￥37.00</li>
-            <li class="godinfo">用文字打败时间。冯唐最畅销作品，杂文才是其销量最好、最受欢迎的作品。</li>
-            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
-        </ul>
-    </div>
-    <div class="goodsItem">
-        <ul class="goditem">
-            <li class="godpic"><img src="../static/img/05.jpg"></li>
-            <li class="godprice">￥25.00</li>
-            <li class="godinfo">《飞鸟集》中很多诗歌是用孟加拉文创作的，这部诗集最早由郑振铎先生译介到中国。</li>
-            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
-        </ul>
-    </div>
-    <div class="goodsItem">
-        <ul class="goditem">
-            <li class="godpic"><img src="../static/img/1.jpg"></li>
-            <li class="godprice">￥56</li>
-            <li class="godinfo">本书主要介绍了如何使用现有的Web 相关技术构建Android 应用程序。</li>
-            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
-        </ul>
-    </div>
-    <div class="goodsItem">
-        <ul class="goditem">
-            <li class="godpic"><img src="../static/img/1.jpg"></li>
-            <li class="godprice">￥37.00</li>
-            <li class="godinfo">用文字打败时间。冯唐最畅销作品,杂文才是其销量最好、最受欢迎的作品。</li>
-            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
-        </ul>
-    </div>
-    <div class="goodsItem">
-        <ul class="goditem">
-            <li class="godpic"><img src="../static/img/2.png"></li>
-            <li class="godprice">￥37.00</li>
-            <li class="godinfo">用文字打败时间。冯唐最畅销作品，杂文才是其销量最好、最受欢迎的作品。</li>
-            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
-        </ul>
-    </div>
-    <div class="goodsItem">
-        <ul class="goditem">
-            <li class="godpic"><img src="../static/img/1.jpg"></li>
-            <li class="godprice">￥37.00</li>
-            <li class="godinfo">用文字打败时间。冯唐最畅销作品,杂文才是其销量最好、最受欢迎的作品。</li>
-            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
-        </ul>
-    </div>
-    <div class="goodsItem">
-        <ul class="goditem">
-            <li class="godpic"><img src="../static/img/1.jpg"></li>
-            <li class="godprice">￥56</li>
-            <li class="godinfo">本书主要介绍了如何使用现有的Web 相关技术构建Android 应用程序。</li>
-            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
-        </ul>
-    </div>
 
+    <div id="goods">
+    {% for product in products %}
+    <div class="goodsItem">
+        <ul class="goditem">
+            <li class="godpic"><img src="../static/images/g-6.jpg"></li>
+            <li class="godinfo">{{ product.flower_name }}</li>
+            <li class="godprice">{{ product.flower_exPrice }}</li>
+            <li class="godinfo"><p>销量：</p>{{ product.flower_sale }}</li>
+            <li class="godinfo">{{ product.flower_sale }}</li>
+            <li class="godadd"><a href="javascript:;">加入购物车</a></li>
+        </ul>
+    </div>
+    {% endfor %}
 </div>
+
 
 <div id="godcar">
     <div class="dnum">0</div>
     <div class="dcar">
-        <img src="../static/img/shop.png">
+
+        <a href="cart.html"><img src="../static/img/shop.png"></a>
     </div>
 </div>
 
