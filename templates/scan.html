@@ -36,7 +36,7 @@
             </button>
   
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <div> class="d-flex mx-auto flex-column flex-lg-row align-items-center">
+              <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
                 <ul class="navbar-nav  ">
                   <li class="nav-item active">
                     <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
@@ -53,6 +53,7 @@
                 </ul>
             </div>
             </div>
+
           </nav>
         </div>
       </header>
@@ -145,14 +146,14 @@
 
 
     <div id="goods">
-    {% for product in products %}
+    {% for i in range(0, 10) %}
+    {% set product = products[i-1] %}
     <div class="goodsItem">
         <ul class="goditem">
-            <li class="godpic"><img src="../static/images/g-6.jpg"></li>
-            <li class="godinfo">{{ product.flower_name }}</li>
-            <li class="godprice">{{ product.flower_exPrice }}</li>
-            <li class="godinfo"><p>销量：</p>{{ product.flower_sale }}</li>
-            <li class="godinfo">{{ product.flower_sale }}</li>
+            <li class="godpic"><img src="{{ product.imgs[i].src }}"></li>
+            <li class="godname"><img src="../static/images/tulip.png" height="25">{{ product.flower_name }}/{{ product.flower_mean }}</li>
+            <li class="godprice">￥{{ product.flower_exPrice }}</li>
+            <li class="godinfo"><a>销量：</a>{{ product.flower_sale }}</li>
             <li class="godadd"><a href="javascript:;">加入购物车</a></li>
         </ul>
     </div>

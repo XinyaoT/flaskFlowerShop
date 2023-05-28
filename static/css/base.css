@@ -37,17 +37,27 @@
 .godpic img:hover {
     transform: scale(1.2);
 }
-.godprice,.godinfo,.godadd{
+.godprice,.godinfo,.godadd,godname{
     display: block;
     width:220px;
     margin:0px auto;
     text-align: center;
 }
+.godname{
+    width: 100%;
+    padding:0 10px;
+    box-sizing: border-box;
+    text-indent: 20px;
+    color:black;
+    font-size: larger;
+    text-align: center;
+    font-family: "楷体",KaiTi,sans-serif;
+}
 .godinfo {
     width: 100%;
     padding:0 10px;
     box-sizing: border-box;
-    text-align: left;
+    text-align: center;
     text-indent: 20px;
 }
 .goodsItem:hover{
