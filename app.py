@@ -13,7 +13,7 @@ from blueprint.scan import bp as scan_bp
 from flask import Flask,render_template
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.urandom(24)  #为了讲解用随机数
+app.config['SECRET_KEY'] = os.urandom(24)
 
 app.register_blueprint(orders_client_bp)
 app.register_blueprint(address_client_bp)
