@@ -25,7 +25,7 @@ def client_insert(password, sex, phone, name):
     # # 创建游标对象
     # cursor = conn.cursor()
     # 插入数据的SQL语句
-    insert_query = "INSERT INTO client (client_id,client_password,client_sex,client_phone,client_name) VALUES (%s, %s, %s, %s, %s)"
+    insert_query = "INSERT INTO client (client_id,client_password,client_sex,client_phone,client_name) VALUES (?, ?, ?, ?, ?)"
     # 插入数据的参数
     data = (id, password, sex, phone, name)
     # 执行插入操作
@@ -47,7 +47,7 @@ def client_select(column_value1, column_value2):
     # # 创建游标对象
     # cursor = conn.cursor()
     # 查找数据的SQL语句
-    select_query = "SELECT * FROM client WHERE client_id = %s AND client_password = %s"
+    select_query = "SELECT * FROM client WHERE client_id = ? AND client_password = ?"
     # 执行查找操作
     data = (column_value1, column_value2)
     cursor.execute(select_query, data)

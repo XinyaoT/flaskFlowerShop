@@ -4,24 +4,24 @@ import pymssql
 import shortuuid
 
 import datetime
-
-from flask import session
+from config import conn,cursor
+from flask import session,redirect,url_for
 
 # server    数据库服务器名称或IP
 # user      用户名
 # password  密码
 # database  数据库名称
 
-server = "127.0.0.1"
-user = "sa"
-password = "tzqsgdmn"
-database = "FlowerShop1"
-
-# 连接数据库
-conn = pymssql.connect(server, user, password, database, autocommit=True, charset='utf8')
-cursor = conn.cursor()
-if conn:
-    print("数据库已连接成功")
+# server = "127.0.0.1"
+# user = "sa"
+# password = "tzqsgdmn"
+# database = "FlowerShop1"
+#
+# # 连接数据库
+# conn = pymssql.connect(server, user, password, database, autocommit=True, charset='utf8')
+# cursor = conn.cursor()
+# if conn:
+#     print("数据库已连接成功")
 
 
 # 新建表
@@ -209,18 +209,18 @@ def selectOrderInfo(order_id):
 # 管理员词云生成：对消息表关键字进行查询
 
 
-def InsertMessageData(nickname, key, message):
+def InsertMessageData(nickname, key, message,c_id):
     message_id = "m" + shortuuid.ShortUUID(alphabet='0123456789').random(length=7)
-    c_id = 'c1111111'
+
     m_time = datetime.datetime.now().strftime("%Y-%m-%d")
-    sql = "INSERT INTO message VALUES (%s, %s, %s, %s, %s, %s)"
+    sql = "INSERT INTO message VALUES (?, ?, ?,?,?, ?)"
     data = (message_id, c_id, message, m_time, key, nickname)
     cursor.execute(sql, data)
     conn.commit()
 
 
 def InsertNoticeData(title, content):
-    sql = "INSERT INTO notice VALUES (%s, %s, %s, %s, %s)"
+    sql = "INSERT INTO notice VALUES (?, ?, ?, ?,?)"
     notice_id = "n" + shortuuid.ShortUUID(alphabet='0123456789').random(length=7)
     manager_id = 'a1111111'
     n_time = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -246,7 +246,7 @@ def createMessageTuple():
 def InsertFlowerData(flower_name, flower_mean, flower_imprice, flower_exprice, flower_num, flower_sale):
     flower_id = "f" + shortuuid.ShortUUID(alphabet='0123456789').random(length=7)
     session['flower_id'] = flower_id
-    sql = "INSERT INTO flower VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    sql = "INSERT INTO flower VALUES (?, ?, ?, ?, ?, ?, ?)"
     data = (flower_id, flower_name, flower_mean, flower_imprice, flower_exprice, flower_num, flower_sale)
     cursor.execute(sql, data)
     conn.commit()

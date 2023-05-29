@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
 import os
 
 from flask import Flask
@@ -8,6 +11,7 @@ from blueprint.clientOrders import bp as orders_client_bp
 from blueprint.clientAddress import bp as address_client_bp
 from blueprint.clientShoppingcart import bp as shoppingcart_client_bp
 from blueprint.admin import bp as admin_bp
+from blueprint.message import bp as message_bp
 from blueprint.client import bp as client_bp
 from blueprint.scan import bp as scan_bp
 from flask import Flask,render_template
@@ -20,6 +24,7 @@ app.register_blueprint(address_client_bp)
 app.register_blueprint(shoppingcart_client_bp)
 app.register_blueprint(client_bp)
 app.register_blueprint(admin_bp)
+app.register_blueprint(message_bp)
 app.register_blueprint(scan_bp)
 app.config.from_object(config)
 
@@ -38,10 +43,10 @@ def get_notice():
             'notice_content': notice[3],
             'notice_time': notice[4],
             })
-    print(results)
+    # print(results.encode('utf-8').decode('utf-8'))
     #return results
     return render_template('index.html', results=results)
 
 
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0',port=5001)
+    app.run(debug=True)

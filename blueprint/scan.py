@@ -4,7 +4,7 @@
 # @Author  : Smalltown
 # @FileName: scan.py
 # @Software: PyCharm
-from flask import Blueprint, jsonify, render_template,session
+from flask import Blueprint, jsonify, render_template,session,redirect,url_for
 from config import conn,cursor
 
 bp = Blueprint('scan',__name__,url_prefix='/scan')  #http://127.0.0.1/client/address/
@@ -45,22 +45,34 @@ def get_flower():
 
 @bp.route('/shoppingcart')
 def get_shoppingcart():
-    sql = "select * from shoppingCart where client_id=%s"
+    sql = '''SELECT  flower_name,flower_exPrice,cart_wholeMoney,add_flower_num,contain.cart_id,contain.flower_id     --展示A表中的A1\A2字段和C表中的C1\C2
+            FROM  contain                         --中间表
+            INNER JOIN flower ON flower.flower_id =contain.flower_id   --A表中的与B表中相同的字段
+            INNER JOIN shoppingCart ON shoppingCart.cart_id = contain.cart_id    --C表中的与B表中相同的字段
+            where    client_id=? '''
     client_id = session.get('client_id')
+    print(client_id)
+    if(client_id ==None):
+        return redirect(url_for("client.clientLogin"))
     cursor.execute(sql,client_id)
     carts = cursor.fetchall()
+    i=0
+    wholeMoney = 0
     results = []
     for cart in carts:
+        i = i+1
         results.append({
-            'id': cart[0],
+            'flower_name': cart[0],
             'imgs': '../static/images/g-10.png',
-            'goodsInfo': '号地块健身房回复的科技示范户快速坚实的看了看大家发快递了很费劲的开始放假',
-            'goodsParams': '四季度后付款的酸辣粉',
-            'price': cart[2],
-            'singleGoodsMoney': cart[3],
-
+            'flower_exPrice': cart[1],
+            'cart_wholeMoney': cart[2],
+            'add_flower_num': cart[3],
+            'cart_id': cart[4],
+            'flower_id': cart[5]
         })
-    # print(results)
-    results_json = jsonify(results)
+    for j in range(0,i):
+        wholeMoney = wholeMoney + results[j]['cart_wholeMoney']
+    print(results)
+    print(wholeMoney)
     # return results
-    return render_template('cart.html', results_json=results_json)
+    return render_template('cart.html', results=results,wholeMoney=wholeMoney)

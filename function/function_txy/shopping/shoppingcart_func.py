@@ -31,6 +31,18 @@ def fun_addshoppingcart(cart_id, user_id, flower_id, wholemoney, add_flower_num,
     '''新增一条联系'''
     data5 = (cart_id, flower_id)
     shopping.addContain(conn=conn, cursor=cursor, data=data5)
+def updateFlowerNum(conn,cursor,add_flower_num,flower_id):
+    #         获取flower表中原有的flower_num的值
+    old_num = shopping.getFlower_flowernum(cursor, flower_id)
+    print(old_num)
+    #          计算出new_num的值
+    new_num = int(old_num) - 1
+    print(new_num)
+    #           修改flower表中flower_num的值
+    data3 = (new_num, flower_id)
+    shopping.updateFLower_flowernum(conn=conn, cursor=cursor, data=data3)
+
+
 
 def getWholeMoney(cursor, flower_id):
     return shopping.getShoppingcart_wholeMoney(cursor=cursor,flower_id=flower_id)
@@ -65,10 +77,10 @@ def fun_can_add_or_not(cursor, flower_id, add_flower_num):
     else:
         return 0
 
-def fun_modifyAddShoppingcart(cursor,conn, flower_name, add_num, cart_wholeMoney, cart_id):
+def fun_modifyAddShoppingcart(cursor,conn, flower_id, add_num, cart_wholeMoney, cart_id):
     #     更新flower中的num
-    flower_id = shopping.getFlower_flowerid(cursor=cursor, flower_name=flower_name)
-    print(flower_id)
+    # flower_id = shopping.getFlower_flowerid(cursor=cursor, flower_name=flower_name)
+    # print(flower_id)
     old_cart_num = shopping.getShoppingcart_add_flower_num(cursor=cursor, cart_id=cart_id)
     print(old_cart_num)
     old_flower_num = shopping.getFlower_flowernum(cursor=cursor, flower_id=flower_id)
@@ -89,10 +101,8 @@ def fun_modifyAddShoppingcart(cursor,conn, flower_name, add_num, cart_wholeMoney
     return int(add_num) - int(old_cart_num)
 
 
-def fun_modifyDecShoppingcart(cursor,conn, flower_name, dec_num, cart_wholeMoney, cart_id):
+def fun_modifyDecShoppingcart(cursor,conn, flower_id, dec_num, cart_wholeMoney, cart_id):
     #     更新flower中的num
-    flower_id = shopping.getFlower_flowerid(cursor=cursor, flower_name=flower_name)
-    print(flower_id)
 
     old_cart_num = shopping.getShoppingcart_add_flower_num(cursor=cursor, cart_id=cart_id)
     print(old_cart_num)
@@ -116,14 +126,13 @@ def fun_modifyDecShoppingcart(cursor,conn, flower_name, dec_num, cart_wholeMoney
     return int(old_cart_num) - int(dec_num)
 
 
-def fun_modifyDeleShoppingcart(cursor, conn, cart_id, flower_name):
-    flower_id = shopping.getFlower_flowerid(cursor=cursor, flower_name=flower_name)
+def fun_modifyDeleShoppingcart(cursor, conn, cart_id, flower_id):
+
+
+
+    # # 更新花表的num
+
     data = (cart_id, flower_id)
-
-    # 更新花表的num
-    flower_id = shopping.getFlower_flowerid(cursor=cursor, flower_name=flower_name)
-    print(flower_id)
-
     old_cart_num = shopping.getShoppingcart_add_flower_num(cursor=cursor, cart_id=cart_id)
     print(old_cart_num)
 
@@ -141,3 +150,7 @@ def fun_modifyDeleShoppingcart(cursor, conn, cart_id, flower_name):
 
     # 删除购物车信息
     shopping.deleteShoppingcart(cursor=cursor, conn=conn, cart_id=cart_id)
+def fun_updateShoppingcart(conn,cursor,wholemoney,cart_id,add_flower_num):
+
+    shopping.updateShoppingcart_cartWholemoney(conn, cursor, (wholemoney,cart_id))
+    shopping.updateShoppingcart_add_flower_num(conn,cursor,(add_flower_num,cart_id))
