@@ -4,6 +4,7 @@ import pymssql
 import shortuuid
 
 import datetime
+import time
 from config import conn,cursor
 from flask import session,redirect,url_for
 
@@ -211,8 +212,9 @@ def selectOrderInfo(order_id):
 
 def InsertMessageData(nickname, key, message,c_id):
     message_id = "m" + shortuuid.ShortUUID(alphabet='0123456789').random(length=7)
-
-    m_time = datetime.datetime.now().strftime("%Y-%m-%d")
+    t = time.localtime()
+    t_s = "{}-{}-{} {}:{}:{}".format(t.tm_year, t.tm_mon, t.tm_mday, t.tm_hour, t.tm_min, t.tm_sec)
+    m_time = t_s
     sql = "INSERT INTO message VALUES (?, ?, ?,?,?, ?)"
     data = (message_id, c_id, message, m_time, key, nickname)
     cursor.execute(sql, data)
@@ -223,7 +225,9 @@ def InsertNoticeData(title, content):
     sql = "INSERT INTO notice VALUES (?, ?, ?, ?,?)"
     notice_id = "n" + shortuuid.ShortUUID(alphabet='0123456789').random(length=7)
     manager_id = 'a1111111'
-    n_time = datetime.datetime.now().strftime("%Y-%m-%d")
+    t = time.localtime()
+    t_s = "{}-{}-{} {}:{}:{}".format(t.tm_year, t.tm_mon, t.tm_mday, t.tm_hour, t.tm_min, t.tm_sec)
+    n_time = t_s
     data = (notice_id, manager_id, title, content, n_time)
     cursor.execute(sql, data)
     # 如果没有指定autocommit属性为True的话就需要调用commit()方法

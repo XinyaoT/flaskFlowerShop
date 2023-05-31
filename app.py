@@ -3,7 +3,7 @@
 
 import os
 
-from flask import Flask
+from flask import Flask, request, jsonify
 
 from config import conn,cursor
 import config
@@ -30,7 +30,7 @@ app.config.from_object(config)
 
 
 @app.route('/')
-def get_notice():
+def index():
     sql = "select * from notice"
     cursor.execute(sql)
     notices = cursor.fetchall()
@@ -42,10 +42,31 @@ def get_notice():
             'notice_title': notice[2],
             'notice_content': notice[3],
             'notice_time': notice[4],
-            })
+        })
     # print(results.encode('utf-8').decode('utf-8'))
-    #return results
+    # return results
     return render_template('index.html', results=results)
+
+
+
+# def get_notice():
+#     sql = "select * from notice"
+#     cursor.execute(sql)
+#     notices = cursor.fetchall()
+#     print(notices)
+#     results = []
+#     for notice in notices:
+#         results.append({
+#             'notice_id': notice[0],
+#             'notice_title': notice[2],
+#             'notice_content': notice[3],
+#             'notice_time': notice[4],
+#             })
+#     # print(results.encode('utf-8').decode('utf-8'))
+#     #return results
+#     return render_template('index.html', results=results)
+
+
 
 
 if __name__ == '__main__':

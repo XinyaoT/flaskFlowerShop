@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>订单确认</title>
+    <style>
+        /* 其他样式代码 */
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f7f7;
+        }
+
+        .order-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin: 0 0 20px;
+        }
+
+        .order-summary {
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        .order-summary h2 {
+            font-size: 18px;
+            margin: 0 0 10px;
+        }
+
+        .order-summary table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .order-summary th,
+        .order-summary td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .order-summary th {
+            font-weight: bold;
+        }
+
+        .order-summary .subtotal-row {
+            font-weight: bold;
+        }
+
+        .order-summary .total-row {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .order-action {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .order-action button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff9900;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .address-container {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .address-container h2 {
+            font-size: 18px;
+            margin: 0 0 10px;
+        }
+
+        .address-form {
+        {#display: grid;#}{#grid-template-columns: 1fr 1fr;#}{#gap: 20px;#}{#align-items: center; /* 垂直对齐修正 */#}
+        }
+
+        .address-form label {
+            font-weight: bold;
+        }
+
+        .address-form input[type="text"],
+        .address-form input[type="tel"],
+        .address-form select { /* 添加 select 样式 */
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .address-form input[type="submit"],
+        .order-action button { /* 按钮样式修正 */
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff9900;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .keepbut {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '{{url_for("scan.selectAddress")}}',
+            type: 'GET',
+            success: function (data) {
+                // 从后端获取到选项数据
+                var options = data;
+
+                // 动态生成选项的HTML
+                var selectOptions = '';
+                for (var i = 0; i < options.length; i++) {
+                    selectOptions += '<option value="' + options[i] + '">' + options[i] + '</option>';
+                }
+
+                // 将选项插入到<select>元素中
+                $('#select-option').html(selectOptions);
+            }
+        });
+    });
+</script>
+<body>
+<div class="order-container">
+    <h1>订单确认</h1>
+
+    {#        <div class="address-container">#}
+    {#            <h2>新增收货地址</h2>#}
+    {#            <form class="address-form" action="{{ url_for("clientAddress.addAddress") }}" method="post">#}
+    {##}
+    {#                <div>#}
+    {#                    <label for="address">地址</label>#}
+    {#                    <input type="text" id="address" name="address" required>#}
+    {#                </div>#}
+    {#                 <br>#}
+    {#                <div class="keepbut">#}
+    {#                    <input type="submit" value="保存地址">#}
+    {#                </div>#}
+    {#            </form>#}
+    {#        </div>#}
+    <form class="address-form" action="{{ url_for("clientOrders.generateOrders") }}" method="post">
+        <div class="address-container">
+            <h2>选择已有收货地址</h2>
+            <div>
+                <label for="select-option">选择地址</label>
+                <select id="select-option" name="select-option">
+                    {#                        {% for address in addresses %}#}
+                    {#                        <option value="{{ address.addr }}">{{ address.addr }}</option>#}
+                    {#                        {% endfor %}#}
+                </select>
+            </div>
+            <div>
+                <label for="select">是否合订成束</label>
+                <select id="select_bunch" name="selected_bunch">
+                    <option value="1">合订</option>
+                    <option value="0">不合订</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="order-summary">
+            <h2>订单摘要</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>商品</th>
+                    <th>价格</th>
+                    <th>数量</th>
+                    <th>小计</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for result in results %}
+                    <tr>
+                        <td>{{ result.flower_name }}</td>
+                        <td>{{ result.flower_exPrice }}</td>
+                        <td>{{ result.add_flower_num }}</td>
+                        <td>{{ result.cart_wholeMoney }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+
+                <tr class="total-row">
+                    <td colspan="3">总计</td>
+                    <td>{{ select_wholeMoney }}</td>
+                    <input type="text" name="select_wholeMoney" value = "{{ select_wholeMoney }}" style="display: none">
+                </tr>
+                </tfoot>
+
+            </table>
+
+        </div>
+        <div>
+            <input type="text" name="results" value="{{ results }}" style="display: none">
+        </div>
+        <div class="order-action">
+            <button id="place-order-btn" type="submit">提交订单</button>
+        </div>
+    </form>
+    {#                <div>#}
+    {#                    <input type="submit" value="选择地址">#}
+    {#                </div>#}
+    {#            <div>#}
+    {#                <label for="existing-address">是否合订成束</label>#}
+    {#                    <select id="existing-address" name="existing-address"></select>#}
+    {#                        <option value="0">0</option>#}
+    {#                        <option value="1">1</option>#}
+    {##}
+    {#                    </select>#}
+    {#            </div>#}
+</div>
+</body>
+</html>

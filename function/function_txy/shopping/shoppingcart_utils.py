@@ -12,7 +12,7 @@ def addClient (conn,cursor,data):
 
 
 def addCart(conn,cursor,data):
-    sql = "INSERT INTO shoppingCart (cart_id,client_id,cart_wholeMoney,add_flower_num) VALUES (?,?,?,?)"
+    sql = "INSERT INTO shoppingCart (cart_id,client_id,cart_wholeMoney,add_flower_num,cart_status) VALUES (?,?,?,?,?)"
     cursor.execute(sql,data)
     conn.commit()
 
@@ -20,6 +20,16 @@ def addContain(conn,cursor,data):
     sql = "INSERT INTO contain (cart_id,flower_id) VALUES (?,?)"
     cursor.execute(sql, data)
     conn.commit()
+
+def updateCartStatus(conn,cursor,cart_id):
+    sql = "update shoppingCart set cart_status='1' where cart_id = ?"
+    cursor.execute(sql, cart_id)
+    conn.commit()
+
+def getCartStatus(cursor,cart_id):
+    sql = "SELECT cart_status FROM shoppingCart where cart_id= ?"
+    cursor.execute(sql, cart_id)
+    return cursor.fetchone()[0]
 
 def updateFLower_flowernum(conn,cursor,data):
     sql = "update flower set flower_num=? where flower_id = ?"
@@ -57,7 +67,7 @@ def getFlower_flowersale(cursor,flower_id):
     return cursor.fetchone()[0]
 
 def getShoppingcart_add_flower_num(cursor,cart_id):
-    sql = "SELECT add_flower_num FROM shoppingCart where cart_id= ? "
+    sql = "SELECT add_flower_num FROM shoppingCart where cart_id= ?  "
     cursor.execute(sql, cart_id)
     return cursor.fetchone()[0]
 

@@ -48,7 +48,7 @@
             <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
               <ul class="navbar-nav  ">
                 <li class="nav-item active">
-                  <a class="nav-link" href="{{ url_for("get_notice") }}">主页<span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="{{ url_for("index") }}">主页<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{{ url_for("scan.get_flower") }}"> 购买花朵</a>
@@ -57,6 +57,9 @@
                   <a class="nav-link" href="{{ url_for("scan.get_shoppingcart") }}"> 我的购物车 </a>
                 </li>
                 <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for("scan.get_orders") }}">我的订单</a>
+                </li>
+                   <li class="nav-item">
                   <a class="nav-link" href="{{ url_for("message.post") }}">留言板</a>
                 </li>
               </ul>
@@ -65,8 +68,11 @@
               <a href="{{url_for('client.clientLogin')}}">
                 登录
               </a>
-              <a href="cart.html">
+              <a href="{{ url_for("scan.get_shoppingcart") }}">
                 <img src="../static/images/cart.png" alt="">
+              </a>
+                <a href="{{ url_for("scan.get_shoppingcart") }}">
+                <img src="../static/images/img_1.png" height="18" width="400" alt="">
               </a>
               <form class="form-inline">
                 <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>

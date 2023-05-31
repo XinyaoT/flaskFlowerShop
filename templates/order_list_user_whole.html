@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>花店购物车</title>
-    <link href="../static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
     <style>
         .table {
             font-size: 14px;
@@ -86,7 +86,7 @@
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="../static/js/bootstrap.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
     <script>
         $(document).ready(function () {
             $('.quantity-input .increment-btn').on('click', function () {
@@ -130,66 +130,80 @@
     </script>
 </head>
 
-<body style="background: url('../static/img/back.jpg')">
-<h1 class="text-center">购物车</h1>
+<body style="background: url('/static/img/background1.png');background-size: 100% ;background-attachment: fixed;">
+<h1 class="text-center">我的订单</h1>
 <div class="container">
     <div class="col-md-8 col-md-offset-2">
-        <form action="{{ url_for('clientOrders.addOrderInfo') }}" method="post">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th>商品</th>
-                        <th>价格</th>
-                        <th>数量</th>
-                        <th>小计</th>
-                        <th>操作</th>
-                        <th></th>
-                    </tr>
-                    </thead>
+        {#        <form action="{{ url_for('clientOrders.addOrderInfo') }}" method="post">#}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
 
-                    <tbody>
-                    {% for result in results %}
-                        <tr>
+                    <th>商品</th>
+                    <th>数量</th>
+                    <th>收货地址</th>
+                    <th>是否合订成束</th>
+                    <th>小计</th>
+                    <th>订单状态</th>
+                    <th>生成时间</th>
+                    <th>操作<th>
+
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for result in results %}
+                <tr>
+                    {#                            <td>#}
+                    {#                                <input type="checkbox" name="cartInfo" value="{{ result.cart_id }}">#}
+                    {#                            </td>#}
+                    <td>
+                        <img src="{{ result.imgs }}" alt="Product Image" class="product-image">
+                        <div class="product-name">{{ result.flower_name }}</div>
+                    </td>
+                    <td class="product-price">{{ result.orderInfo_flowerNum }}</td>
+                    <td class="subtotal">{{ result.orderInfo_addr }}</td>
+                    <td class="subtotal">{% if result.orderInfo_bunched == '1' %}
+                        合订
+                    {% elif result.orderInfo_bunched == '0' %}
+                        单支
+                    {% else %}
+                        {{ result.orderInfo_bunched }}
+                    {% endif %}</td>
+                    <td class="product-price">{{ result.orderInfo_wholeMoney }}</td>
+                    <td class="subtotal">{% if result.orderInfo_status == '00' %}
+                        未处理
+                    {% elif result.orderInfo_status == '01' %}
+                        已完成
+                    {% elif result.orderInfo_status == '10' %}
+                        申请取消中
+                    {% elif result.orderInfo_status == '11' %}
+                        取消申请同意
+                    {% else %}
+                        {{ result.orderInfo_bunched }}
+                    {% endif %}</td>
+                    <td class="product-price">{{ result.orderInfo_time }}</td>
+
+
                             <td>
-                                <input type="checkbox" name="cartInfo" value="{{ result.cart_id }}">
-                            </td>
-                            <td>
-                                <img src="{{ result.imgs }}" alt="Product Image" class="product-image">
-                                <div class="product-name">{{ result.flower_name }}</div>
-                            </td>
-                            <td class="product-price">{{ result.flower_exPrice }}</td>
-                            <td>
-                                <div class="quantity-input">
-                                    <button class="btn btn-default decrement-btn"><a
-                                            href="{{ url_for("clientShoppingcart.modifyShoppingcart",cid=1,cart_id=result.cart_id,flower_name=result.flower_name,flower_id=result.flower_id) }}">-</a>
-                                    </button>
-                                    <input type="number" value="{{ result.add_flower_num }}" min="1">
-                                    <button class="btn btn-default increment-btn"><a
-                                            href="{{ url_for("clientShoppingcart.modifyShoppingcart",cid=2,cart_id=result.cart_id,flower_name=result.flower_name,flower_id=result.flower_id) }}">+</a>
-                                    </button>
-                                </div>
-                            </td>
-                            <td class="subtotal">{{ result.cart_wholeMoney }}</td>
-                            <td>
-                                <a href="{{ url_for("clientShoppingcart.modifyShoppingcart",cid=3,cart_id=result.cart_id,flower_name=result.flower_name,flower_id=result.flower_id) }}"
-                                   class="delete-btn">删除</a>
+                                <a href="{{ url_for("clientOrders.deleteOrders",orderInfo_id=result.orderInfo_id) }}"
+                                   class="delete-btn">申请取消</a>
                             </td>
                         </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                   {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-            <div class="total-price">
-                总价 <span>{{ wholeMoney }}</span>
-            </div>
+{#        <div class="total-price">#}
+{#            总价 <span>{{ wholeMoney }}</span>#}
+{#        </div>#}
 
-            <div class="checkout-btn" id="check">
-                <button class="btn btn-primary" type="submit">提交</button>
-            </div>
-        </form>
+{#        <div class="checkout-btn" id="check">#}
+{#            <button class="btn btn-primary" type="submit">提交</button>#}
+{#        </div>#}
+        {#        </form>#}
 
 
     </div>

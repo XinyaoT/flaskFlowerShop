@@ -6,28 +6,27 @@
 # @Software: PyCharm
 from flask import Blueprint, session,redirect,url_for
 import shortuuid
-from function.function_txy.shopping.shoppingcart_utils import get_cartId,getShoppingcart_add_flower_num,updateShoppingcart_cartWholemoney,updateShoppingcart_add_flower_num,getShoppingcart_wholeMoneyNotadd
+from function.function_txy.shopping.shoppingcart_utils import get_cartId,getShoppingcart_add_flower_num,getCartStatus
 from function.function_txy.shopping import shoppingcart_func as shoppingFun
 from config import conn,cursor
 bp = Blueprint('clientShoppingcart',__name__,url_prefix='/client/shoppingcart')   #http://127.0.0.1/client/shoppingcart
 
 @bp.route('/add/?flower_id=<flower_id>',methods= ['GET','POST'])
 def addShppingcart(flower_id):
-
-    '''前端接收用户传入的购物车数据，插入cart Info的表中,
-                用户选择一种花就应该有一个购物车id，
-                现在假设用户已经选择好了一种花，加入购物车'''
-
     print("现在你已经可以开始选购你喜欢的花朵了！\n")
-
-    '''接受参数'''
+    # 获取用户id
     user_id = session.get('client_id')
     if (user_id == None):
         return redirect(url_for("client.clientLogin"))
-    # 增加判断机制，是否是同一个商品
-    iscart_id =get_cartId(cursor,flower_id)
 
-    if (iscart_id==None):
+    sql = '''SELECT  contain.cart_id     --展示A表中的A1\A2字段和C表中的C1\C2
+            FROM  contain                         --中间表
+            INNER JOIN shoppingCart ON shoppingCart.cart_id = contain.cart_id    --C表中的与B表中相同的字段
+            where    contain.flower_id=? and cart_status='0' and client_id =? '''
+    cursor.execute(sql,(flower_id,user_id))
+    IscartId = cursor.fetchone()  #找不到说明要新增
+
+    if(IscartId == None):
         cart_id = "c" + shortuuid.ShortUUID(alphabet='0123456789').random(length=7)  # 自动分配cartID
         add_flower_num = 1
         wholemoney = shoppingFun.getWholeMoney(cursor=cursor, flower_id=flower_id)
@@ -48,11 +47,11 @@ def addShppingcart(flower_id):
             messageACK = "现在你已经成功将此花加入你的购物车了！"
             print(messageACK, "\n")
 
-
-    else:
-        cart_id = get_cartId(cursor,flower_id)[0]
-        add_flower_num = getShoppingcart_add_flower_num(cursor,cart_id) + 1
-        print(getShoppingcart_add_flower_num(cursor,cart_id))
+    else:  #找得到说明不用新增
+        cart_id = IscartId[0]
+        print(cart_id)
+        add_flower_num = getShoppingcart_add_flower_num(cursor, cart_id) + 1
+        print(getShoppingcart_add_flower_num(cursor, cart_id))
         print(add_flower_num)
         '''判断是否能加入购物车'''
         flag = shoppingFun.fun_can_add_or_not(cursor, flower_id, add_flower_num)
@@ -64,12 +63,72 @@ def addShppingcart(flower_id):
         # 可以加入
         else:
             wholemoney = add_flower_num * shoppingFun.getWholeMoney(cursor=cursor, flower_id=flower_id)
-            shoppingFun.fun_updateShoppingcart(conn,cursor,wholemoney,cart_id,add_flower_num)
-            shoppingFun.updateFlowerNum(conn,cursor,add_flower_num,flower_id)
-    print(flower_id,user_id,cart_id,add_flower_num,wholemoney)
-    '''点击+ 确认，'''
+            shoppingFun.fun_updateShoppingcart(conn, cursor, wholemoney, cart_id, add_flower_num)
+            shoppingFun.updateFlowerNum(conn, cursor, add_flower_num, flower_id)
+        print(flower_id, user_id, cart_id, add_flower_num, wholemoney)
 
-    return redirect(url_for('scan.get_flower'))
+
+    return  redirect(url_for('scan.get_flower'))
+    '''前端接收用户传入的购物车数据，插入cart Info的表中,
+                用户选择一种花就应该有一个购物车id，
+                现在假设用户已经选择好了一种花，加入购物车'''
+
+    # print("现在你已经可以开始选购你喜欢的花朵了！\n")
+    #
+    # '''接受参数'''
+    # user_id = session.get('client_id')
+    # if (user_id == None):
+    #     return redirect(url_for("client.clientLogin"))
+    # print(user_id,"addceshishop")
+    # # 增加判断机制，是否是同一个商品
+    # iscart_id =get_cartId(cursor,flower_id)
+    #
+    # if (iscart_id==None):
+    #     cart_id = "c" + shortuuid.ShortUUID(alphabet='0123456789').random(length=7)  # 自动分配cartID
+    #     add_flower_num = 1
+    #     wholemoney = shoppingFun.getWholeMoney(cursor=cursor, flower_id=flower_id)
+    #
+    #     '''判断是否能加入购物车'''
+    #     flag = shoppingFun.fun_can_add_or_not(cursor, flower_id, add_flower_num)
+    #
+    #     # 不可以加入
+    #     if flag == 1:
+    #         messageNAK = "库存不足，请重新设置购买数量"
+    #         print(messageNAK)
+    #     # 可以加入
+    #     else:
+    #         # 更新shoppingcart flower表 contain表，对于flower表的sale应该在订单处更新
+    #         shoppingFun.fun_addshoppingcart(cart_id=cart_id, user_id=user_id, flower_id=flower_id,
+    #                                         wholemoney=wholemoney, add_flower_num=add_flower_num, cursor=cursor,
+    #                                         conn=conn)
+    #         messageACK = "现在你已经成功将此花加入你的购物车了！"
+    #         print(messageACK, "\n")
+    #
+    #
+    # else:
+    #     cart_id = get_cartId(cursor,flower_id)
+    #
+    #
+    #     add_flower_num = getShoppingcart_add_flower_num(cursor,cart_id) + 1
+    #     print(getShoppingcart_add_flower_num(cursor,cart_id))
+    #     print(add_flower_num)
+    #     '''判断是否能加入购物车'''
+    #     flag = shoppingFun.fun_can_add_or_not(cursor, flower_id, add_flower_num)
+    #
+    #     # 不可以加入
+    #     if flag == 1:
+    #         messageNAK = "库存不足，请重新设置购买数量"
+    #         print(messageNAK)
+    #     # 可以加入
+    #     else:
+    #         wholemoney = add_flower_num * shoppingFun.getWholeMoney(cursor=cursor, flower_id=flower_id)
+    #         shoppingFun.fun_updateShoppingcart(conn,cursor,wholemoney,cart_id,add_flower_num)
+    #         shoppingFun.updateFlowerNum(conn,cursor,add_flower_num,flower_id)
+    #     print(flower_id,user_id,cart_id,add_flower_num,wholemoney)
+    #     '''点击+ 确认，'''
+
+
+
 
 
 

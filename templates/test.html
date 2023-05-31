@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>表单提交示例</title>
+    <link rel="stylesheet" href="/static/lib/layui/css/layui.css">
+</head>
+<body>
+    <form class="layui-form" action="/submit" method="post">
+        <!-- 表单内容... -->
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">年龄</label>
+            <div class="layui-input-block">
+                <input type="text" name="age" lay-verify="required|number" placeholder="请输入年龄" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formSubmit">提交</button>
+            </div>
+        </div>
+    </form>
+
+    <script src="/static/lib/layui/layui.js"></script>
+    <script>
+        layui.use(['form'], function() {
+            var form = layui.form;
+
+            // 监听表单提交
+            form.on('submit(formSubmit)', function(data) {
+                // 阻止表单的默认提交行为
+                event.preventDefault();
+
+                // 发送异步请求提交表单数据
+                var url = data.form.action;
+                var method = data.form.method;
+                var formData = new FormData(data.form);
+
+                var xhr = new XMLHttpRequest();
+                xhr.open(method, url);
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        // 请求成功后的处理逻辑
+                        console.log(xhr.responseText);
+                        // 页面跳转
+                        window.location.href = "/successfull"; // 修改为你的跳转URL
+                    } else {
+                        // 请求失败的处理逻辑
+                        console.error(xhr.responseText);
+                    }
+                };
+                xhr.send(formData);
+
+                return false; // 阻止 layui 表单的自动提交
+            });
+        });
+    </script>
+</body>
+</html>

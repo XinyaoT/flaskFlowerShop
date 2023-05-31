@@ -31,9 +31,9 @@ def client_insert(password, sex, phone, name):
     # 执行插入操作
     cursor.execute(insert_query, data)
     # 提交事务
-    conn.commit()
-    # 关闭连接
-    conn.close()
+    # conn.commit()
+    # # 关闭连接
+    # conn.close()
     #返回id
     return id
 
@@ -58,6 +58,6 @@ def client_select(column_value1, column_value2):
     else:
         return True
     # 关闭游标
-    cursor.close()
-    # 关闭连接
-    conn.close()
+    # cursor.close()
+    # # 关闭连接
+    # conn.close()

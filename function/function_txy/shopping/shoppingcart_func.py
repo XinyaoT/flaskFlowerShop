@@ -16,7 +16,7 @@ def fun_addshoppingcart(cart_id, user_id, flower_id, wholemoney, add_flower_num,
     new_num = int(old_num) - int(add_flower_num)
 
     #           新增一条购物车信息
-    data2 = (cart_id, user_id, wholemoney, add_flower_num)
+    data2 = (cart_id, user_id, wholemoney, add_flower_num,'0')
     shopping.addCart(conn=conn, cursor=cursor, data=data2)
 
     #           修改flower表中flower_num的值
@@ -41,6 +41,7 @@ def updateFlowerNum(conn,cursor,add_flower_num,flower_id):
     #           修改flower表中flower_num的值
     data3 = (new_num, flower_id)
     shopping.updateFLower_flowernum(conn=conn, cursor=cursor, data=data3)
+
 
 
 
