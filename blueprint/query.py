@@ -1,9 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for
 from flask import request
 
-from flaskFlowerShop.config import cursor
-from flaskFlowerShop.function.function_tzq.tools import createMessageTuple, createClientTuple, createFlowerTuple, \
-    getFlowerBySort
+from config import cursor
+from function.function_tzq.tools import createMessageTuple, createFlowerTuple, getFlowerBySort, createClientTuple
 
 bp = Blueprint("query", __name__, url_prefix="/query")
 

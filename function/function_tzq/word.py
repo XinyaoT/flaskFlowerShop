@@ -8,6 +8,7 @@ import jieba
 import io
 import base64
 
+from function.function_tzq import tools
 
 
 def wordcloud():
@@ -21,18 +22,18 @@ def wordcloud():
 
 
 # 这部分只是为了测试，因为数据库数据不够，画出来的图形会不美观，看不出花朵的形状
-    with open("改革开放 科技创新.txt", mode="r", encoding="utf-8") as fp:
-        content = fp.read()
-    results = jieba.lcut(content)
-    text = " ".join(results)
+#     with open("改革开放 科技创新.txt", mode="r", encoding="utf-8") as fp:
+#         content = fp.read()
+#     results = jieba.lcut(content)
+#     text = " ".join(results)
 # 真正使用时只需要注释掉上面的代码，运行这段代码就行
-    # sql = "SELECT message_key FROM message"
-    # tools.cursor.execute(sql)
-    # results = tools.cursor.fetchall()
-    # key_list = [result[0].encode('gbk').decode('gbk') for result in results]
-    # text = " ".join(key_list)
+    sql = "SELECT message_key FROM message"
+    tools.cursor.execute(sql)
+    results = tools.cursor.fetchall()
+    key_list = [result[0].encode('gbk').decode('gbk') for result in results]
+    text = " ".join(key_list)
     # image.show()
-    # print(text)
+    print(text)
 
 
 
@@ -42,7 +43,7 @@ def wordcloud():
 
     plt.imshow(word_cloud)
     plt.axis("off")
-    plt.show()
+    # plt.show()
     # 保存词云图像为图片文件
     word_cloud.to_file("wordcloud.png")
     # 假设您已经生成了词云图像，保存为wordcloud.png

@@ -14,12 +14,16 @@ from blueprint.admin import bp as admin_bp
 from blueprint.message import bp as message_bp
 from blueprint.client import bp as client_bp
 from blueprint.scan import bp as scan_bp
+from blueprint.query import bp as query_bp
+from blueprint.manager import bp as manager_bp
+
 from flask import Flask,render_template
 
-from flaskFlowerShop.function.function_tzq.word import wordcloud
+from function.function_tzq.word import wordcloud
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
+
 
 app.register_blueprint(orders_client_bp)
 app.register_blueprint(address_client_bp)
@@ -29,6 +33,8 @@ app.register_blueprint(admin_bp)
 app.register_blueprint(message_bp)
 app.register_blueprint(scan_bp)
 app.config.from_object(config)
+app.register_blueprint(query_bp)
+app.register_blueprint(manager_bp)
 
 
 @app.route('/')

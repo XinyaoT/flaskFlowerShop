@@ -7,7 +7,7 @@ import datetime
 
 from flask import session
 
-from flaskFlowerShop.config import cursor, conn
+from config import cursor, conn
 
 
 # server    数据库服务器名称或IP
@@ -219,9 +219,9 @@ def selectOrderInfo(order_id):
 # 管理员词云生成：对消息表关键字进行查询
 
 
-def InsertMessageData(nickname, key, message):
+def InsertMessageData(nickname, key, message,c_id):
     message_id = "m" + shortuuid.ShortUUID(alphabet='0123456789').random(length=7)
-    c_id = 'c1111111'
+
     m_time = datetime.datetime.now().strftime("%Y-%m-%d")
     sql = "INSERT INTO message VALUES (?, ?, ?, ?, ?, ?)"
     data = (message_id, c_id, message, m_time, key, nickname)

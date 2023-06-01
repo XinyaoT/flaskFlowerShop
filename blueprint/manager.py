@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from flaskFlowerShop.config import cursor, conn
-from flaskFlowerShop.function.function_tzq.tools import DataOrderAnalyse, OrderFlower, DataMessageAnalyse, \
-    InsertNoticeData, createFlowerTuple, InsertFlowerData
-from flaskFlowerShop.function.function_tzq.word import wordcloud
+
+from config import cursor, conn
+from function.function_tzq.tools import DataOrderAnalyse, OrderFlower, DataMessageAnalyse, InsertNoticeData, \
+    createFlowerTuple, InsertFlowerData
+from function.function_tzq.word import wordcloud
 
 bp = Blueprint("manager", __name__, url_prefix="/manager")
 

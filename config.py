@@ -10,16 +10,11 @@ import pyodbc
 # user      用户名
 # password  密码
 # database  数据库名称
-
-server = "127.0.0.1,1433"  # 请确保服务器名称和端口号的正确性
-user = "sa"
-password = "tzqsgdmn"
-database = "FlowerShopFinal"
-
-# pyodbc连接数据库
-conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + server + ';DATABASE=' + database + ';UID=' + user + ';PWD=' + password)
-cursor = conn.cursor()
-
+conn = pyodbc.connect('DRIVER={SQL Server};SERVER=LAPTOP-D2INVD39;DATABASE=flower_shop_6;UID=sa;PWD=123')
+str = "连接失败！"
 if conn:
-    print("数据库已连接成功")
+    str='连接成功！'
+    # db.close() # 关闭连接，释放内存
+print(str) # 如果结果为连接成功即表示已经成功连接。
+cursor = conn.cursor()
 

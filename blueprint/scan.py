@@ -4,9 +4,10 @@
 # @Author  : Smalltown
 # @FileName: scan.py
 # @Software: PyCharm
-from flask import Blueprint, jsonify, render_template,session,redirect,url_for
+from flask import Blueprint, jsonify, render_template, session, redirect, url_for, request
 
-from flaskFlowerShop.config import cursor
+from config import cursor
+from function.function_tzq.tools import updateOrderInfoStatus, getOrderStatus, getOrderInfoStatus
 
 bp = Blueprint('scan',__name__,url_prefix='/scan')  #http://127.0.0.1/client/address/
 
@@ -206,3 +207,66 @@ def get_orders():
         })
     print(results)
     return render_template("order_list_user_whole.html", results=results)
+
+
+@bp.route('/orderInfo')
+def get_order_info():
+    order_id = request.args.get('order_id')
+    sql = "select * from orderInfo where order_id='" + order_id + "'"
+    # print(sql)
+    cursor.execute(sql)
+    orderInfos = cursor.fetchall()
+    results = []
+    for orderInfo in orderInfos:
+        orderInfo[4] = getOrderInfoStatus(orderInfo)
+        results.append({
+            'orderInfo_id': orderInfo[0],
+            'cart_id': orderInfo[1],
+            'order_id': orderInfo[2],
+            'orderInfo_time': orderInfo[3],
+            'orderInfo_status': orderInfo[4],
+            'orderInfo_flower_id': orderInfo[5],
+            'orderInfo_flower_name': orderInfo[6],
+            'orderInfo_flowerNum': orderInfo[7],
+            'orderInfo_wholeMoney': orderInfo[8],
+            'orderInfo_addr': orderInfo[9],
+            'orderInfo_bunched': orderInfo[10],
+            'orderInfo_client_id': orderInfo[11]
+        })
+        print(results)
+    return render_template('over-view.html', results=results)
+
+
+@bp.route('/order')
+def get_order():
+    sql = "select * from [order]"
+    cursor.execute(sql)
+    orders = cursor.fetchall()
+    results = []
+    for order in orders:
+        order[5] = getOrderStatus(order)
+        results.append({
+            'order_id': order[0],
+            'client_id': order[1],
+            'order_purchaseMethod': order[2],
+            'order_price': order[3],
+            'order_time': order[4],
+            'order_status': order[5],
+
+        })
+
+    print(results)
+    return render_template('order-list.html', results=results)
+
+
+# 这里用来获取前端页面点击事件传递的参数
+@bp.route('/updateInfoStatus', methods=['POST'])
+def updateInfoStatus():
+    status = request.form.get('order_status')
+    order_id = request.form.get('order_id')
+    print(status, order_id)
+    # 这个函数实现后端数据库order表以及orderInfo表的status值的更新
+    updateOrderInfoStatus(order_id, status)
+    # 在此处编写订单状态更新的逻辑
+    # 可以使用获取到的状态参数进行相关的数据库操作或其他操作
+    return '订单状态已更新'

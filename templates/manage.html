@@ -30,7 +30,7 @@
             <div class="left_open">
                 <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
             </div>
-           
+
             <ul class="layui-nav right" lay-filter="">
                 <li class="layui-nav-item">
                     <a href="javascript:;">admin</a>
@@ -45,7 +45,7 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item to-index">
-                    <a href="/">前台首页</a></li>
+                    <a href="/">前台首页</a></li><!--这里要改-->
             </ul>
         </div>
         <!-- 顶部结束 -->
@@ -55,148 +55,43 @@
             <div id="side-nav">
                 <ul id="nav">
                     <li>
-                        <a href="javascript:;">
-                            <i class="iconfont left-nav-li" lay-tips="会员管理">&#xe6b8;</i>
-                            <cite>会员管理</cite>
+                        <a href="{{url_for('query.queryClient') }}">
+                            <i class="iconfont left-nav-li" lay-tips="用户管理">&#xe6b8;</i>
+                            <cite>用户管理</cite>
                             <i class="iconfont nav_right">&#xe697;</i></a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a onclick="xadmin.add_tab('统计页面','welcome1.html')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>统计页面</cite></a>
-                            </li>
-                            
-                            <li>
-                                <a onclick="xadmin.add_tab('会员列表(动态表格)','member-list1.html',true)">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>会员列表</cite></a>
-                            </li>
-                            <li>
-                                <a onclick="xadmin.add_tab('会员删除','member-del.html')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>会员删除</cite></a>
-                            </li>
-                            
-                        </ul>
                     </li>
                     <li>
-                        <a href="javascript:;">
+                        <a href="{{ url_for('query.queryMessage') }}">
                             <i class="iconfont left-nav-li" lay-tips="留言管理">&#xe6b8;</i>
                             <cite>留言管理</cite>
                             <i class="iconfont nav_right">&#xe697;</i></a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a onclick="xadmin.add_tab('留言审核','welcome1.html')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>留言审核</cite></a>
-                            </li>
-                            
-                            <li>
-                                <a onclick="xadmin.add_tab('留言列表','member-list1.html',true)">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>留言列表</cite></a>
-                            </li>
-                            <li>
-                                <a onclick="xadmin.add_tab('留言删除','member-del.html')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>留言删除</cite></a>
-                            </li>
-                            
-                        </ul>
                     </li>
                     <li>
-                        <a href="javascript:;">
+                        <a href="{{ url_for('scan.get_order') }}">
                             <i class="iconfont left-nav-li" lay-tips="订单管理">&#xe723;</i>
                             <cite>订单管理</cite>
                             <i class="iconfont nav_right">&#xe697;</i></a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a onclick="xadmin.add_tab('订单列表','order-list.html')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>订单列表</cite></a>
-                            </li>
-                            
-                        </ul>
                     </li>
                     <li>
-                        <a href="javascript:;">
-                            <i class="iconfont left-nav-li" lay-tips="分类管理">&#xe723;</i>
-                            <cite>分类管理</cite>
-                            <i class="iconfont nav_right">&#xe697;</i></a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a onclick="xadmin.add_tab('多级分类','cate.html')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>多级分类</cite></a>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <li>
-                        <a href="javascript:;">
+                        <a href="{{ url_for('query.queryFlower') }}">
                             <i class="iconfont left-nav-li" lay-tips="管理员管理">&#xe726;</i>
-                            <cite>管理员管理</cite>
+                            <cite>花朵管理</cite>
                             <i class="iconfont nav_right">&#xe697;</i></a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a onclick="xadmin.add_tab('管理员列表','admin-list.html')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>管理员列表</cite></a>
-                            </li>
-                            <li>
-                                <a onclick="xadmin.add_tab('角色管理','admin-role.html')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>角色管理</cite></a>
-                            </li>
-                            <li>
-                                <a onclick="xadmin.add_tab('权限分类','admin-cate.html')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>权限分类</cite></a>
-                            </li>
-                            <li>
-                                <a onclick="xadmin.add_tab('权限管理','admin-rule.html')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>权限管理</cite></a>
-                            </li>
-                        </ul>
                     </li>
                     <li>
-                        <a href="javascript:;">
-                            <i class="iconfont left-nav-li" lay-tips="系统统计">&#xe6ce;</i>
-                            <cite>系统统计</cite>
+                        <a href="{{ url_for('manager.notice') }}">
+                            <i class="iconfont left-nav-li" lay-tips="留言管理">&#xe6b8;</i>
+                            <cite>发布公告</cite>
                             <i class="iconfont nav_right">&#xe697;</i></a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a onclick="xadmin.add_tab('拆线图','echarts1.html')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>拆线图</cite></a>
-                            </li>
-                            <li>
-                                <a onclick="xadmin.add_tab('拆线图','echarts2.html')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>拆线图</cite></a>
-                            </li>
-                            <li>
-                                <a onclick="xadmin.add_tab('地图','echarts3.html')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>地图</cite></a>
-                            </li>
-                            <li>
-                                <a onclick="xadmin.add_tab('饼图','echarts4.html')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>饼图</cite></a>
-                            </li>
-                    
-                        </ul>
                     </li>
-                    
-            
-                   
+
                 </ul>
             </div>
         </div>
         <!-- <div class="x-slide_left"></div> -->
         <!-- 左侧菜单结束 -->
+
+
         <!-- 右侧主体开始 -->
         <div class="page-content">
             <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
@@ -211,7 +106,7 @@
                 </div>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
-                        <iframe src='./welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                        <iframe src="{{ url_for("manager.welcome_index") }}" frameborder="0" scrolling="yes" class="x-iframe"></iframe>
                     </div>
                 </div>
                 <div id="tab_show"></div>
@@ -220,6 +115,21 @@
         <div class="page-content-bg"></div>
         <style id="theme_style"></style>
         <!-- 右侧主体结束 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <!-- 中部结束 -->
         <script>//百度统计可去掉
             var _hmt = _hmt || []; (function() {
@@ -229,5 +139,4 @@
                 s.parentNode.insertBefore(hm, s);
             })();</script>
     </body>
-
 </html>

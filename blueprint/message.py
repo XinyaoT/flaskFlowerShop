@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, session
 from flask import request
 
-from flaskFlowerShop.function.function_tzq.tools import InsertMessageData
+from function.function_tzq.tools import InsertMessageData
 
 bp = Blueprint("message", __name__, url_prefix="/message")
 
@@ -17,10 +17,13 @@ def post():
     # 传参方式
     # /post?message=xxxxxxx
     # return render_template("contact.html")
+    user_id = session.get('client_id')
+    if (user_id == None):
+        return redirect(url_for("client.clientLogin"))
     if request.method == 'POST':
         nickname = request.form['nickname']
         key = request.form['key']
         message = request.form['message']
         # print(nickname)
-        InsertMessageData(nickname, key, message)
+        InsertMessageData(nickname, key, message,user_id)
     return render_template("contact.html")
