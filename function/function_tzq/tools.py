@@ -4,9 +4,11 @@ import pymssql
 import shortuuid
 
 import datetime
-import time
-from config import conn,cursor
-from flask import session,redirect,url_for
+
+from flask import session
+
+from flaskFlowerShop.config import cursor, conn
+
 
 # server    数据库服务器名称或IP
 # user      用户名
@@ -108,24 +110,27 @@ def DataAnalyse(col_name, table_ana, condition_ana):
 def DataMessageAnalyse():
     sql = "SELECT message_key, count(*) FROM message GROUP BY message_key"
     cursor.execute(sql)
-    conn.commit()
     results = cursor.fetchall()
-    columns = [column[0] for column in cursor.description]
-    for row in results:
-        print(f"{columns[0]}={row[0].encode('latin-1').decode('gbk')}, {columns[1]}={row[1]}")
+    print(results)
+    if len(results) > 0:
+        first_row_first_column = results[0][0]
+        return first_row_first_column
+    else:
+        return None  # 或返回默认值或进行适当的错误处理
 
 
 # 近一周热卖
 def DataOrderAnalyse():
     last_week = datetime.datetime.now().date() - datetime.timedelta(days=7)
-    sql = f"SELECT orderInfo_flower_name, SUM(orderInfo_flowerNum) FROM orderInfo WHERE order_time >= '{last_week}' GROUP BY orderInfo_flower_name"
-    # sql = "SELECT orderInfo_flower_name, SUM(orderInfo_flowerNum) FROM orderInfo GROUP BY orderInfo_flower_id"
+    sql = f"SELECT orderInfo_flower_name, SUM(orderInfo_flowerNum) FROM orderInfo WHERE orderInfo_time >= '{last_week}' GROUP BY orderInfo_flower_name"
     cursor.execute(sql)
-    conn.commit()
     results = cursor.fetchall()
-    columns = [column[0] for column in cursor.description]
-    for row in results:
-        print(f"{columns[0]}={row[0].encode('latin-1').decode('gbk')}, {columns[1]}={row[1]}")
+    print(results)
+    if len(results) > 0:
+        first_row_first_column = results[0][0]
+        return first_row_first_column
+    else:
+        return None  # 或返回默认值或进行适当的错误处理
 
 
 # 排序
@@ -137,12 +142,16 @@ def OrderFlower(case):
         sql = "SELECT flower_name,flower_num FROM flower ORDER BY flower_num DESC"
     cursor.execute(sql)
     row = cursor.fetchone()
-    # 获取所有的列名
-    columns = [column[0] for column in cursor.description]
-    while row:
-        print(f"{columns[0]}={row[0].encode('latin-1').decode('gbk')}, {columns[1]}={row[1]}")
-        row = cursor.fetchone()
-    conn.commit()
+    print(row[0])
+    return row[0]
+    # print("here")
+    # # 获取所有的列名
+    # columns = [column[0] for column in cursor.description]
+    # while row:
+    #     print(f"{columns[0]}={row[0].encode('gbk').decode('gbk')}, {columns[1]}={row[1]}")
+    #     row = cursor.fetchone()
+    # conn.commit()
+    # print(columns[0])
 
 
 # 两表关联查询
@@ -170,10 +179,10 @@ def selectOrderInfo(order_id):
         for column in columns:
             if isinstance(row_dict[column], datetime.datetime):
                 value = row_dict[column].strftime('%Y-%m-%d %H:%M:%S')  # 将日期时间转换为字符串
-                encoded_value = value.encode('latin-1').decode('gbk')  # 进行编码转换
+                encoded_value = value.encode('gbk').decode('gbk')  # 进行编码转换
                 print(f"{column}={encoded_value}")
             else:
-                encoded_value = str(row_dict[column]).encode('latin-1').decode('gbk')  # 其他类型的列进行常规编码转换
+                encoded_value = str(row_dict[column]).encode('gbk').decode('gbk')  # 其他类型的列进行常规编码转换
                 print(f"{column}={encoded_value}")
         row = cursor.fetchone()
     conn.commit()
@@ -210,25 +219,23 @@ def selectOrderInfo(order_id):
 # 管理员词云生成：对消息表关键字进行查询
 
 
-def InsertMessageData(nickname, key, message,c_id):
+def InsertMessageData(nickname, key, message):
     message_id = "m" + shortuuid.ShortUUID(alphabet='0123456789').random(length=7)
-    t = time.localtime()
-    t_s = "{}-{}-{} {}:{}:{}".format(t.tm_year, t.tm_mon, t.tm_mday, t.tm_hour, t.tm_min, t.tm_sec)
-    m_time = t_s
-    sql = "INSERT INTO message VALUES (?, ?, ?,?,?, ?)"
+    c_id = 'c1111111'
+    m_time = datetime.datetime.now().strftime("%Y-%m-%d")
+    sql = "INSERT INTO message VALUES (?, ?, ?, ?, ?, ?)"
     data = (message_id, c_id, message, m_time, key, nickname)
     cursor.execute(sql, data)
     conn.commit()
 
 
 def InsertNoticeData(title, content):
-    sql = "INSERT INTO notice VALUES (?, ?, ?, ?,?)"
+    sql = "INSERT INTO notice VALUES (?, ?, ?, ?, ?)"
     notice_id = "n" + shortuuid.ShortUUID(alphabet='0123456789').random(length=7)
     manager_id = 'a1111111'
-    t = time.localtime()
-    t_s = "{}-{}-{} {}:{}:{}".format(t.tm_year, t.tm_mon, t.tm_mday, t.tm_hour, t.tm_min, t.tm_sec)
-    n_time = t_s
+    n_time = datetime.datetime.now().strftime("%Y-%m-%d")
     data = (notice_id, manager_id, title, content, n_time)
+    print(data)
     cursor.execute(sql, data)
     # 如果没有指定autocommit属性为True的话就需要调用commit()方法
     conn.commit()
@@ -242,14 +249,14 @@ def createMessageTuple():
         unique_values.add(row[4])
     unique_values = tuple(unique_values)
     encoded_tuple = tuple(
-        item.encode('latin-1').decode('gbk') if isinstance(item, str) else item for item in unique_values)
+        item.encode('gbk').decode('gbk') if isinstance(item, str) else item for item in unique_values)
     print(encoded_tuple)
     return encoded_tuple
 
 
 def InsertFlowerData(flower_name, flower_mean, flower_imprice, flower_exprice, flower_num, flower_sale):
     flower_id = "f" + shortuuid.ShortUUID(alphabet='0123456789').random(length=7)
-    session['flower_id'] = flower_id
+    # session['flower_id'] = flower_id
     sql = "INSERT INTO flower VALUES (?, ?, ?, ?, ?, ?, ?)"
     data = (flower_id, flower_name, flower_mean, flower_imprice, flower_exprice, flower_num, flower_sale)
     cursor.execute(sql, data)
@@ -264,6 +271,115 @@ def createFlowerTuple():
         unique_values.add(row[1])
     unique_values = tuple(unique_values)
     encoded_tuple = tuple(
-        item.encode('latin-1').decode('gbk') if isinstance(item, str) else item for item in unique_values)
+        item.encode('gbk').decode('gbk') if isinstance(item, str) else item for item in unique_values)
     print(encoded_tuple)
     return encoded_tuple
+
+
+def createFlowerIDTuple():
+    cursor.execute("SELECT * FROM flower")
+    rows = cursor.fetchall()
+    unique_values = set()
+    for row in rows:
+        unique_values.add(row[0])
+    unique_values = tuple(unique_values)
+    encoded_tuple = tuple(
+        item.encode('gbk').decode('gbk') if isinstance(item, str) else item for item in unique_values)
+    print(encoded_tuple)
+    return encoded_tuple
+
+
+def createClientTuple():
+    cursor.execute("SELECT * FROM client")
+    rows = cursor.fetchall()
+    unique_values = set()
+    for row in rows:
+        unique_values.add(row[0])
+    unique_values = tuple(unique_values)
+    encoded_tuple = tuple(
+        item.encode('gbk').decode('gbk') if isinstance(item, str) else item for item in unique_values)
+    print(encoded_tuple)
+    return encoded_tuple
+
+
+def getFlowerBySort(flower_id):
+    sql = "SELECT sort.sort_name FROM sort " \
+          "JOIN belong ON sort.sort_id = belong.sort_id " \
+          "JOIN flower ON belong.flower_id = flower.flower_id " \
+          "WHERE flower.flower_id = ?"
+    cursor.execute(sql, (flower_id,))
+
+    # 获取查询结果
+    results = cursor.fetchall()
+    print("getFlowerBySort-results")
+    print(results)
+
+    # 将结果合并为字符串，并删除空格
+    result_string = ', '.join([row[0].strip() for row in results])
+
+    print("getFlowerBySort-result_string")
+    print(result_string)
+
+    return result_string
+
+
+def getOrderInfoStatus(info):
+    status = info[4]
+    if status == '00':
+        ret = '未处理'
+    elif status == '01':
+        ret = '已完成'
+    elif status == '10':
+        ret = '顾客申请取消'
+    else:
+        ret = '同意取消'
+    return ret
+
+
+def getOrderStatus(info):
+    status = info[5]
+    if status == '00':
+        ret = '未处理'
+    else:
+        ret = '已处理'
+    return ret
+
+
+def updateOrderInfoStatus(orderInfo_id, status):
+    # 执行 SQL 更新语句
+    if status == '1':
+        orderInfo_status = '00'
+    elif status == '2':
+        orderInfo_status = '01'
+    elif status == '3':
+        orderInfo_status = '10'
+    else:
+        orderInfo_status = '11'
+    sql = f"UPDATE orderInfo SET [orderInfo_status] = '{orderInfo_status}' WHERE [orderInfo_id] = '{orderInfo_id}'"
+    print(sql)
+    cursor.execute(sql)
+    sql = "SELECT [order_id] FROM orderInfo WHERE [orderInfo_id] = '{}'".format(orderInfo_id)
+    print(sql)
+    cursor.execute(sql)
+    row = cursor.fetchone()
+    if row:
+        order_id = row[0]
+        print(order_id)
+
+    sql = "SELECT * FROM orderInfo WHERE [order_id] = ?"
+    print(sql)
+    cursor.execute(sql, (order_id,))
+    # 获取查询结果
+    results = cursor.fetchall()
+
+    # 检查每条记录的orderInfo属性是否都不是"00"
+    all_not_00 = all(result.orderInfo_status != "00" for result in results)
+
+    # 输出检验结果
+    if all_not_00 :
+        print("所有记录的orderInfo属性都不是'00'")
+        sql = f"UPDATE [order] SET [order_status] = '01' WHERE [order_id] = '{order_id}'"
+        cursor.execute(sql)
+        print("order_status已更新")
+
+

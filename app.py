@@ -16,6 +16,8 @@ from blueprint.client import bp as client_bp
 from blueprint.scan import bp as scan_bp
 from flask import Flask,render_template
 
+from flaskFlowerShop.function.function_tzq.word import wordcloud
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 
@@ -45,7 +47,8 @@ def index():
         })
     # print(results.encode('utf-8').decode('utf-8'))
     # return results
-    return render_template('index.html', results=results)
+    image_base64 = wordcloud()
+    return render_template('index.html', results=results, initial_image_data=image_base64)
 
 
 

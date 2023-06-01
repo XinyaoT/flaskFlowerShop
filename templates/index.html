@@ -188,9 +188,20 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-xl-7">
-          <div class="img-box">
-            <img src="../static/images/about-img.png" alt="" />
-          </div>
+                <img class="word-cloud-image" id="word-cloud-image" src="" alt="Word Cloud">
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    // 定义一个函数用于更新词云图像
+                    function updateWordCloudImage(imageData) {
+                    var imgElement = document.getElementById('word-cloud-image');
+                    imgElement.src = 'data:image/png;base64,' + imageData;
+                    }
+                    // 调用更新函数，并传递初始的词云图像数据
+                updateWordCloudImage('{{ initial_image_data }}');
+                    // 可以根据需要在此处添加其他逻辑
+                });
+            </script>
         </div>
         <div class="col-md-5 col-xl-5">
           <div class="detail_box">

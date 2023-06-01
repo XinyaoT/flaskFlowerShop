@@ -30,32 +30,13 @@
 
 <body class="sub_page">
 
-  <div class="hero_area">
-    <!-- header section strats -->
-    <header class="header_section">
-      <div class="container">
-        <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="index.html">
-            <span>
-              Fior
-            </span>
-          </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
-
-
-            </div>
-
-          </div>
-        </nav>
-      </div>
-    </header>
-    <!-- end header section -->
-  </div>
+  <div class="x-nav">
+          <span class="layui-breadcrumb">
+            <a href="{{ url_for('manager.welcome') }}">首页</a>
+          </span>
+          <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
+            <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
+        </div>
 
 
   <!-- contact section -->
@@ -72,7 +53,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 mx-auto">
-          <form action="" method="post">
+          <form action="{{ url_for('manager.notice') }}" method="POST">
             <div>
               <input type="text" name="title" placeholder="标题" />
             </div>
@@ -80,13 +61,16 @@
             <div>
               <input type="text" name="content" class="message-box" placeholder="内容" />
             </div>
-            <div class="d-flex  mt-4 ">
+
+
+
+                <div class="d-flex  mt-4 ">
 
               <button type="submit">
                 SEND
               </button>
             </div>
-          </form>
+            </form>
         </div>
       </div>
     </div>

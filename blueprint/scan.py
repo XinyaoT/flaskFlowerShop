@@ -5,7 +5,8 @@
 # @FileName: scan.py
 # @Software: PyCharm
 from flask import Blueprint, jsonify, render_template,session,redirect,url_for
-from config import conn,cursor
+
+from flaskFlowerShop.config import cursor
 
 bp = Blueprint('scan',__name__,url_prefix='/scan')  #http://127.0.0.1/client/address/
 
@@ -78,55 +79,55 @@ def get_shoppingcart():
     return render_template('cart.html', results=results,wholeMoney=wholeMoney)
 
 
-@bp.route('/orderInfo')
-def get_order_info():
-    sql = "select * from orderInfo"
-    cursor.execute(sql)
-    orderInfos = cursor.fetchall()
-    results = []
-    for orderInfo in orderInfos:
-        results.append({
-            'orderInfo_id': orderInfo[0],
-            'cart_id': orderInfo[1],
-            'order_id': orderInfo[2],
-            'orderInfo_time': orderInfo[3],
-            'orderInfo_status': orderInfo[4],
-            'orderInfo_flower_id': orderInfo[5],
-            'orderInfo_flower_name': orderInfo[6],
-            'orderInfo_flowerNum':orderInfo[7],
-            'orderInfo_wholeMoney':orderInfo[8],
-            'orderInfo_addr':orderInfo[9],
-            'orderInfo_bunched':orderInfo[10],
-            'orderInfo_client_id':orderInfo[11]
-
-
-        })
-
-    # products = jsonify(result)
-    # print(products)
-    return render_template('over-view.html', results=results )
-
-
-@bp.route('/order')
-def get_order():
-    sql = "select * from [order]"
-    cursor.execute(sql)
-    orders = cursor.fetchall()
-    results = []
-    for order in orders:
-        results.append({
-            'order_id': order[0],
-            'client_id': order[1],
-            'order_purchaseMethod': order[2],
-            'order_price': order[3],
-            'order_time': order[4],
-            'order_status': order[5],
-
-        })
-
-    # products = jsonify(result)
-    # print(products)
-    return render_template('order-list.html', results=results )
+# @bp.route('/orderInfo')
+# def get_order_info():
+#     sql = "select * from orderInfo"
+#     cursor.execute(sql)
+#     orderInfos = cursor.fetchall()
+#     results = []
+#     for orderInfo in orderInfos:
+#         results.append({
+#             'orderInfo_id': orderInfo[0],
+#             'cart_id': orderInfo[1],
+#             'order_id': orderInfo[2],
+#             'orderInfo_time': orderInfo[3],
+#             'orderInfo_status': orderInfo[4],
+#             'orderInfo_flower_id': orderInfo[5],
+#             'orderInfo_flower_name': orderInfo[6],
+#             'orderInfo_flowerNum':orderInfo[7],
+#             'orderInfo_wholeMoney':orderInfo[8],
+#             'orderInfo_addr':orderInfo[9],
+#             'orderInfo_bunched':orderInfo[10],
+#             'orderInfo_client_id':orderInfo[11]
+#
+#
+#         })
+#
+#     # products = jsonify(result)
+#     # print(products)
+#     return render_template('over-view.html', results=results )
+#
+#
+# @bp.route('/order')
+# def get_order():
+#     sql = "select * from [order]"
+#     cursor.execute(sql)
+#     orders = cursor.fetchall()
+#     results = []
+#     for order in orders:
+#         results.append({
+#             'order_id': order[0],
+#             'client_id': order[1],
+#             'order_purchaseMethod': order[2],
+#             'order_price': order[3],
+#             'order_time': order[4],
+#             'order_status': order[5],
+#
+#         })
+#
+#     # products = jsonify(result)
+#     # print(products)
+#     return render_template('order-list.html', results=results )
 
 @bp.route('/selectaddr',methods=['GET','POST'])
 def selectAddress():
