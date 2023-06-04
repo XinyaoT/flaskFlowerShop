@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>地址确认</title>
+    <style>
+        /* 其他样式代码 */
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f7f7;
+        }
+
+        .order-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin: 0 0 20px;
+        }
+
+        .order-summary {
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        .order-summary h2 {
+            font-size: 18px;
+            margin: 0 0 10px;
+        }
+
+        .order-summary table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .order-summary th,
+        .order-summary td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .order-summary th {
+            font-weight: bold;
+        }
+
+        .order-summary .subtotal-row {
+            font-weight: bold;
+        }
+
+        .order-summary .total-row {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .order-action {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .order-action button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff9900;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .address-container {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .address-container h2 {
+            font-size: 18px;
+            margin: 0 0 10px;
+        }
+
+        .address-form {
+        {#display: grid;#}{#grid-template-columns: 1fr 1fr;#}{#gap: 20px;#}{#align-items: center; /* 垂直对齐修正 */#}
+        }
+
+        .address-form label {
+            font-weight: bold;
+        }
+
+        .address-form input[type="text"],
+        .address-form input[type="tel"],
+        .address-form select { /* 添加 select 样式 */
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .address-form input[type="submit"],
+        .order-action button { /* 按钮样式修正 */
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff9900;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .keepbut {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<div class="order-container">
+    <h1>地址确认</h1>
+
+            <div class="address-container">
+                <h2>新增收货地址</h2>
+                <form class="address-form" action="/client/address/add" method="post">
+
+                    <div>
+                       <label for="address">地址</label>
+                        <input type="text" id="address" name="consignee_addr" required>
+                    </div>
+                     <br>
+                    <div class="keepbut">
+                        <input type="submit" value="保存地址">
+                    </div>
+                </form>
+            </div>
+
+<!--      <script>-->
+<!--    // 监听表单提交事件-->
+<!--    document.getElementById('address-form').addEventListener('submit', event => {-->
+<!--      event.preventDefault(); // 阻止表单默认提交行为-->
+
+<!--      // 获取表单数据-->
+<!--      const form = event.target;-->
+<!--      const formData = new FormData(form);-->
+
+<!--      // 发送表单数据到后端-->
+<!--      fetch('/client/address/add', {-->
+<!--        method: 'POST',-->
+<!--        body: formData-->
+<!--      })-->
+<!--        .then(response => {-->
+<!--          if (response.ok) {-->
+<!--            // 提交成功后跳转到另一个HTML页面-->
+<!--            window.location.href = '/addressShow.html';-->
+<!--          } else {-->
+<!--            console.error('提交失败');-->
+<!--          }-->
+<!--        })-->
+<!--        .catch(error => {-->
+<!--          console.error('请求错误:', error);-->
+<!--        });-->
+<!--    });-->
+<!--  </script>-->
+</div>

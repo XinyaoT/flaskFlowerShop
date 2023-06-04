@@ -1,0 +1,171 @@
+    <!DOCTYPE html>
+    <html class="x-admin-sm">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>欢迎页面-X-admin2.2</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport"
+            content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/font.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/xadmin.css') }}">
+        <link rel="stylesheet" href="https://cdn.staticfile.org/layui/2.5.6/css/layui.min.css">
+        <script src="https://cdn.staticfile.org/layui/2.5.6/layui.min.js"></script>
+        <script src="{{ url_for('static', filename='lib/layui/layui.js') }}" charset="utf-8"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/xadmin.js') }}"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/layui@2.6.8/dist/css/layui.css">
+{#    <script src="https://cdn.jsdelivr.net/npm/layui@2.6.8/dist/layui.all.js"></script>#}
+
+        <!--[if lt IE 9]>
+        <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+        <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <style>
+            p,
+            label {
+                font: 1rem 'Fira Sans', sans-serif;
+            }
+
+            input {
+                margin: 0.4rem;
+            }
+        </style>
+    </head>
+
+    <body>
+    <div class="layui-fluid">
+        <div class="layui-row">
+            <form class="layui-form" method="post">
+                <div class="layui-form-item">
+                    <label for="L_username" class="layui-form-label">
+                        <span class="x-red">*</span>花名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="L_username" name="flower_name" required="" lay-verify="nikename"
+                            autocomplete="off" class="layui-input"></div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_language" class="layui-form-label">
+                        <span class="x-red">*</span>花语</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="L_language" name="flower_mean" required="" lay-verify="pass"
+                            autocomplete="off" class="layui-input"></div>
+                    <div class="layui-form-mid layui-word-aux"></div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_imprice" class="layui-form-label">
+                        <span class="x-red">*</span>进价</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="L_imprice" name="flower_imprice" required="" lay-verify="repass"
+                            autocomplete="off" class="layui-input"></div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="L_price" class="layui-form-label">
+                        <span class="x-red">*</span>售价</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="L_price" name="flower_exprice" required="" lay-verify="email"
+                            autocomplete="off" class="layui-input"></div>
+                    <div class="layui-form-mid layui-word-aux">
+                        <span class="x-red">*</span></div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <label for="L_num" class="layui-form-label">
+                        <span class="x-red">*</span>鲜花库存</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="L_num" name="flower_num" required="" lay-verify="email" autocomplete="off"
+                            class="layui-input"></div>
+                    <div class="layui-form-mid layui-word-aux">
+                        <span class="x-red">*</span></div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <label for="L_sale" class="layui-form-label">
+                        <span class="x-red">*</span>鲜花销量</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="L-sale" name="flower_sale" required="" lay-verify="email" autocomplete="off"
+                            class="layui-input"></div>
+                    <div class="layui-form-mid layui-word-aux">
+                        <span class="x-red">*</span></div>
+                </div>
+            
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red">*</span>选择花朵所属类型
+                        </label>
+                    
+                        
+                        <label for="s0001"><input type="checkbox" id="s0001" name="flower_type[]" value="s0001"
+                                                title="情人节" ></label>
+                        <label for="s0002"><input type="checkbox" id="s0002" name="flower_type[]" value="s0002"
+                                                title="七夕节"></label>
+                        <label for="s0003"><input type="checkbox" id="s0003" name="flower_type[]" value="s0003"
+                                                title="儿童节"></label>
+                        <label for="s0004"><input type="checkbox" id="s0004" name="flower_type[]" value="s0004"
+                                                title="母亲节"></label>
+                        <label for="s0005"><input type="checkbox" id="s0005" name="flower_type[]" value="s0005"
+                                                title="教师节"></label>
+                        <label for="s0006"><input type="checkbox" id="s0006" name="flower_type[]" value="s0006"
+                                                title="清明节"></label>
+                        <label for="s0007"><input type="checkbox" id="s0007" name="flower_type[]" value="s0007"
+                                                title="妇女节"></label>
+                        <label for="s0008"><input type="checkbox" id="s0008" name="flower_type[]" value="s0008"
+                                                title="端午节"></label>
+                        <label for="s0009"><input type="checkbox" id="s0009" name="flower_type[]" value="s0009"
+                                                title="圣诞节"></label>
+                        <label for="s0010"><input type="checkbox" id="s0010" name="flower_type[]" value="s0010"
+                                                title="父亲节"></label>
+                        <label for="s0011"><input type="checkbox" id="s0011" name="flower_type[]" value="s0011"
+                                                title="中秋节"></label>
+                        <label for="s0012"><input type="checkbox" id="s0012" name="flower_type[]" value="s0012"
+                                                title="重阳节"></label>
+                        <label for="s0013"><input type="checkbox" id="s0013" name="flower_type[]" value="s0013"
+                                                title="春节"></label>
+                        <label for="s0014"><input type="checkbox" id="s0014" name="flower_type[]" value="s0014"
+                                                title="元宵节"></label>
+                        <label for="s0015"><input type="checkbox" id="s0015" name="flower_type[]" value="s0015"
+                                                title="愚人节"></label>
+                        <label for="s0016"><input type="checkbox" id="s0016" name="flower_type[]" value="s0016"
+                                                title="青年节"></label>
+                        <label for="s0017"><input type="checkbox" id="s0017" name="flower_type[]" value="s0017"
+                                                title="护士节"></label>
+                        <label for="s0018"><input type="checkbox" id="s0018" name="flower_type[]" value="s0018"
+                                                title="建军节"></label>
+                        <label for="s0019"><input type="checkbox" id="s0019" name="flower_type[]" value="s0019"
+                                                title="国庆节"></label>
+                        <label for="s0020"><input type="checkbox" id="s0020" name="flower_type[]" value="s0020"
+                                                title="万圣节"></label>
+                        <label for="s0021"><input type="checkbox" id="s0021" name="flower_type[]" value="s0021"
+                                                title="感恩节"></label>
+                                            
+                    
+                </div>
+
+
+
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label"></label>
+                    <a href="{{ url_for('query.queryFlower') }}">
+                        <button class="layui-btn" lay-filter="add" lay-submit="" type="submit">增加</button>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+    <script> layui.use('form', function () {
+        var form = layui.form;
+        // 在这里可以对复选框的选择进行监听和处理
+    });</script>
+
+
+    </body>
+
+    </html>

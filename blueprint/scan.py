@@ -36,7 +36,13 @@ def get_flower():
                 {'src': '../static/images/g-7.jpg'},
                 {'src': '../static/images/g-8.jpg'},
                 {'src': '../static/images/g-9.png'},
-                {'src': '../static/images/g-10.png'}
+                {'src': '../static/images/g-10.png'},
+                {'src': '../static/images/g-11.png'},
+                {'src': '../static/images/g-12.png'},
+                {'src': '../static/images/g-13.png'},
+                {'src': '../static/images/g-14.png'},
+                {'src': '../static/images/g-7.jpg'},
+                {'src': '../static/images/g-15.png'}
             ]
         })
 

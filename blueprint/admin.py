@@ -10,7 +10,7 @@ from flask import Flask,render_template
 from flask import redirect
 from flask import url_for
 from flask import request
-from function.function_xyn import clientLoginInAUp
+from function.function_xyn import clientLoginInAUp,adminLoginLnAUp
 from config import conn,cursor
 
 bp = Blueprint('admin',__name__,url_prefix='/admin')   #http://127.0.0.1/admin
@@ -25,3 +25,12 @@ def showClient():
   print(columns)
   print(content)
   return render_template('admin-list.html', labels=columns, content=content)
+
+@bp.route("/login",methods=['GET','POST'])
+def adminLogin():
+  if request.method == 'POST':
+    id = request.form['manager_id']
+    password = request.form['manager_password']
+    if adminLoginLnAUp.manager_select(id, password):
+      return render_template('manage.html', username=id)
+  return render_template('admin-login.html')

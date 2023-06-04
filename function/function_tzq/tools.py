@@ -261,6 +261,7 @@ def InsertFlowerData(flower_name, flower_mean, flower_imprice, flower_exprice, f
     data = (flower_id, flower_name, flower_mean, flower_imprice, flower_exprice, flower_num, flower_sale)
     cursor.execute(sql, data)
     conn.commit()
+    return flower_id
 
 
 def createFlowerTuple():

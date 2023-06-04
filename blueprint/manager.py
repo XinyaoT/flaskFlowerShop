@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 
 from config import cursor, conn
 from function.function_tzq.tools import DataOrderAnalyse, OrderFlower, DataMessageAnalyse, InsertNoticeData, \
-    createFlowerTuple, InsertFlowerData
+    createFlowerTuple, InsertFlowerData, getFlowerBySort
 from function.function_tzq.word import wordcloud
 
 bp = Blueprint("manager", __name__, url_prefix="/manager")
@@ -93,14 +93,44 @@ def delMessage():
     return render_template('message.html', labels=columns, content=content)
 
 
+# # 增加花朵
+# @bp.route('/addflower', methods=['GET', 'POST'])
+# def addFlower():
+#     if request.method == 'POST':
+#         flower_name = request.form['flower_name']
+#         flower_names = createFlowerTuple()
+#         print(flower_names)
+#         print(flower_name)
+#         for item in flower_names:
+#             if item == flower_name:
+#                 return render_template('flower-add.html')
+#         flower_mean = request.form['flower_mean']
+#         flower_imprice = request.form['flower_imprice']
+#         flower_exprice = request.form['flower_exprice']
+#         flower_num = request.form['flower_num']
+#         flower_sale = request.form['flower_sale']
+#         InsertFlowerData(flower_name, flower_mean, flower_imprice, flower_exprice, flower_num, flower_sale)
+#         sql = "SELECT * FROM flower"
+#         cursor.execute(sql)
+#         content = [tuple(item.encode('gbk').decode('gbk') if isinstance(item, str) else item for item in row) for row in
+#                    cursor.fetchall()]
+#         columns = [column[0] for column in cursor.description]
+#         print(columns)
+#         print(content)
+#         return render_template('flower-list.html', labels=columns, content=content)
+#     return render_template('flower-add.html')
+
+
+# 增加花朵
+# 增加花朵
 # 增加花朵
 @bp.route('/addflower', methods=['GET', 'POST'])
 def addFlower():
     if request.method == 'POST':
         flower_name = request.form['flower_name']
         flower_names = createFlowerTuple()
-        print(flower_names)
-        print(flower_name)
+        # print(flower_names)
+        # print(flower_name)
         for item in flower_names:
             if item == flower_name:
                 return render_template('flower-add.html')
@@ -109,16 +139,41 @@ def addFlower():
         flower_exprice = request.form['flower_exprice']
         flower_num = request.form['flower_num']
         flower_sale = request.form['flower_sale']
-        InsertFlowerData(flower_name, flower_mean, flower_imprice, flower_exprice, flower_num, flower_sale)
+        flower_types = request.form.getlist('flower_type[]')
+        count = len(flower_types)
+        # print(count)
+        flower_id = InsertFlowerData(flower_name, flower_mean, flower_imprice, flower_exprice, flower_num, flower_sale)
+
+        for flower_type in flower_types:
+            sql = "INSERT INTO belong (sort_id, flower_id) VALUES (?, ?)"
+            values = (flower_type, flower_id)
+            cursor.execute(sql, values)
+            conn.commit()
         sql = "SELECT * FROM flower"
         cursor.execute(sql)
-        content = [tuple(item.encode('gbk').decode('gbk') if isinstance(item, str) else item for item in row) for row in
-                   cursor.fetchall()]
-        columns = [column[0] for column in cursor.description]
-        print(columns)
-        print(content)
-        return render_template('flower-list.html', labels=columns, content=content)
+        # 获取查询结果
+        results = cursor.fetchall()
+        # print(results)
+        # 将结果转化为列表形式，并为每一行添加属性
+        content = []
+        for row in results:
+            # 将每一行转化为字典形式，并添加属性
+            row_dict = {column[0]: item.encode('gbk').decode('gbk') if isinstance(item, str) else item for column, item
+                        in
+                        zip(cursor.description, row)}
+            row_dict['sorts'] = getFlowerBySort(row[0])  # 添加新属性
+            # 为了将cursor值导回flower表
+            sql = "SELECT * FROM flower"
+            cursor.execute(sql)
+            # print(row_dict)
+            content.append(row_dict)
+        # print(content)
+        result_tuples = [tuple(d.values()) for d in content]
+        # print("content")
+        # print(content)
+        return render_template('flower-list.html', content=result_tuples)
     return render_template('flower-add.html')
+
 
 # 删除花朵，暂不实现
 # @bp.route('/delflower/flower_id=<flower_id>', methods=['GET', 'POST'])

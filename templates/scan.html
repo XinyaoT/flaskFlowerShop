@@ -146,16 +146,18 @@
 
 
     <div id="goods">
-    {% for i in range(0, 10) %}
+    {% for i in range(0, 16) %}
     {% set product = products[i-1] %}
     <div class="goodsItem">
         <ul class="goditem">
             <li class="godpic"><img src="{{ product.imgs[i].src }}"></li>
-            <li class="godname"><img src="../static/images/tulip.png" height="25">{{ product.flower_name }}/{{ product.flower_mean }}</li>
+            <li class="godname"><img src="../static/images/tulip.png" height="25">
+                {{ product.flower_name }}/{{ product.flower_mean }}</li>
             <li class="godprice">￥{{ product.flower_exPrice }}</li>
             <li class="godinfo"><a>销量：</a>{{ product.flower_sale }}</li>
              <li class="godinfo"><a>库存：</a>{{ product.flower_num }}</li>
-            <li class="godadd"><a href="{{ url_for("clientShoppingcart.addShppingcart", flower_id= product.flower_id )}}">加入购物车</a></li>
+            <li class="godadd"><a href="{{ url_for("clientShoppingcart.addShppingcart", flower_id= product.flower_id )}}">
+                加入购物车</a></li>
         </ul>
     </div>
     {% endfor %}

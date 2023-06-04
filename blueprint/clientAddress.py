@@ -4,19 +4,33 @@
 # @Author  : Smalltown
 # @FileName: clientAddress.py
 # @Software: PyCharm
-from flask import Blueprint,session,render_template,redirect,url_for
+from flask import Blueprint, session, render_template, redirect, url_for, request
 
 from config import cursor
+from function.function_xyn import addAddress
 
 bp = Blueprint('clientAddress',__name__,url_prefix='/client/address')  #http://127.0.0.1/client/address/
 
-@bp.route('/add')
-def addAddress():
-    user_id = session.get("client_id")
-    sql =''' '''
-    cursor.execute(sql, user_id)
+@bp.route('/add',methods=['GET','POST'])
+def addAddress_client():
+    if request.method == 'POST':
+        address = request.form['consignee_addr']
+        user_id = session.get("client_id")
+        if (user_id == None):
+            return redirect(url_for("client.clientLogin"))
+        print(user_id)
+        addAddress.address_insert(user_id,address)
+        return redirect(url_for('showAddress.showaddress'))
+    return render_template('client-addressAdd.html')
 
-    return user_id
+
+# @bp.route('/add')
+# def addAddress():
+#     user_id = session.get("client_id")
+#     sql =''' '''
+#     cursor.execute(sql, user_id)
+#
+#     return user_id
 @bp.route('/select',methods=['GET','POST'])
 def selectAddress():
 

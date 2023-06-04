@@ -1,0 +1,308 @@
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{##}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>地址增加</title>#}
+{#    <link href="../static/css/bootstrap.css" rel="stylesheet">#}
+{#    <style>#}
+{#        .table {#}
+{#            font-size: 14px;#}
+{#            border: 1px solid #ddd;#}
+{#            border-collapse: separate;#}
+{#            border-spacing: 0;#}
+{#            width: 100%;#}
+{#            max-width: 100%;#}
+{#        }#}
+{##}
+{#        .table thead th {#}
+{#            vertical-align: middle;#}
+{#            padding: 10px;#}
+{#            font-size: 14px;#}
+{#            font-weight: bold;#}
+{#            text-align: center;#}
+{#            border-bottom: 1px solid #ddd;#}
+{#            background-color: #f7f7f7;#}
+{#        }#}
+{##}
+{#        .table tbody td {#}
+{#            vertical-align: middle;#}
+{#            padding: 10px;#}
+{#            text-align: center;#}
+{#            border-bottom: 1px solid #ddd;#}
+{#        }#}
+{##}
+{#        .table tbody tr:last-child td {#}
+{#            border-bottom: none;#}
+{#        }#}
+{##}
+{#        .product-image {#}
+{#            width: 80px;#}
+{#            height: 80px;#}
+{#            object-fit: cover;#}
+{#            border-radius: 4px;#}
+{#        }#}
+{##}
+{#        .product-name {#}
+{#            text-align: left;#}
+{#            font-weight: bold;#}
+{#            color: #555;#}
+{#            margin-bottom: 5px;#}
+{#        }#}
+{##}
+{#        .product-price {#}
+{#            font-weight: bold;#}
+{#        }#}
+{##}
+{#        .quantity-input {#}
+{#            display: flex;#}
+{#            align-items: center;#}
+{#            justify-content: center;#}
+{#            width: 80px;#}
+{#            margin: 0 auto;#}
+{#        }#}
+{##}
+{#        .quantity-input input {#}
+{#            width: 40px;#}
+{#            text-align: center;#}
+{#            border: 1px solid #ddd;#}
+{#            border-radius: 4px;#}
+{#        }#}
+{##}
+{#        .delete-btn {#}
+{#            color: #cc0000;#}
+{#            text-decoration: none;#}
+{#        }#}
+{##}
+{#        .total-price {#}
+{#            font-size: 18px;#}
+{#            font-weight: bold;#}
+{#            text-align: right;#}
+{#            margin-top: 20px;#}
+{#        }#}
+{##}
+{#        .checkout-btn {#}
+{#            margin-top: 20px;#}
+{#            text-align: right;#}
+{#        }#}
+{#    </style>#}
+{#    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>#}
+{#    <script src="../static/js/bootstrap.js"></script>#}
+{#    <script>#}
+{#        $(document).ready(function() {#}
+{#            $('.quantity-input .increment-btn').on('click', function() {#}
+{#                var input = $(this).siblings('input');#}
+{#                var currentValue = parseInt(input.val());#}
+{#                input.val(currentValue + 1);#}
+{#                calculateTotalPrice();#}
+{#            });#}
+{##}
+{#            $('.quantity-input .decrement-btn').on('click', function() {#}
+{#                var input = $(this).siblings('input');#}
+{#                var currentValue = parseInt(input.val());#}
+{#                if (currentValue > 1) {#}
+{#                    input.val(currentValue - 1);#}
+{#                    calculateTotalPrice();#}
+{#                }#}
+{#            });#}
+{##}
+{#            $('.delete-btn').on('click', function() {#}
+{#                $(this).closest('tr').remove();#}
+{#                calculateTotalPrice();#}
+{#            });#}
+{##}
+{#            $('input[type="checkbox"]').on('change', function() {#}
+{#                calculateTotalPrice();#}
+{#            });#}
+{##}
+{#            function calculateTotalPrice() {#}
+{#                var totalPrice = 0;#}
+{#                $('input[type="checkbox"]:checked').each(function() {#}
+{#                    var row = $(this).closest('tr');#}
+{#                    var price = parseFloat(row.find('.product-price').text());#}
+{#                    var quantity = parseInt(row.find('input[type="number"]').val());#}
+{#                    totalPrice += price * quantity;#}
+{#                });#}
+{#                $('.total-price span').text(totalPrice.toFixed(2));#}
+{#            }#}
+{#        });#}
+{#    </script>#}
+{#</head>#}
+{##}
+{#<body style="background: url('../static/img/back.jpg')">#}
+{#    <h1 class="text-center">地址栏</h1>#}
+{#    <div class="container">#}
+{#        <div class="col-md-8 col-md-offset-2">#}
+{#            <div class="table-responsive">#}
+{#                <table class="table">#}
+{#                    <thead>#}
+{#                        <tr>#}
+{#                            <th>地址编号</th>#}
+{#                            <th>地址详情</th>#}
+{#                        </tr>#}
+{#                    </thead>#}
+{#                    <tbody>#}
+{#                        {% for row in content %}#}
+{#                        <tr>#}
+{#                            <td>{{ row[0][0] }}</td>#}
+{#                            <td>{{ row[0][1] }}</td>#}
+{#                        </tr>#}
+{#                        {% endfor %}#}
+{#                    </tbody>#}
+{#                </table>#}
+{#            </div>#}
+{#            <div class="checkout-btn">#}
+{#                <a href="{{ url_for('clientAddress.addAddress_client') }}"><button class="btn btn-primary">增加新地址</button></a>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</body>#}
+{#</html>#}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>地址增加</title>
+    <link href="{{ url_for ('static',filename ='css/bootstrap.css') }}" rel="stylesheet">
+    <style>
+        body {
+            background: url('{{ url_for ('static',filename ='img/back.jpg') }}');
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+        }
+
+        h1 {
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .english-translation {
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .separator-line {
+            border-top: 3px solid black;
+            margin-bottom: 20px;
+        }
+
+        .table {
+            font-size: 14px;
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+            max-width: 100%;
+            border: 3px solid black;
+        }
+
+        .table thead th {
+            vertical-align: middle;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 2px solid black;
+            background-color: white;
+        }
+
+        .table tbody td {
+            vertical-align: middle;
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .add-address-btn {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .add-address-btn button {
+            margin: 0 auto;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="{{ url_for ('static',filename ='js/bootstrap.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.quantity-input .increment-btn').on('click', function() {
+                var input = $(this).siblings('input');
+                var currentValue = parseInt(input.val());
+                input.val(currentValue + 1);
+                calculateTotalPrice();
+            });
+
+            $('.quantity-input .decrement-btn').on('click', function() {
+                var input = $(this).siblings('input');
+                var currentValue = parseInt(input.val());
+                if (currentValue > 1) {
+                    input.val(currentValue - 1);
+                    calculateTotalPrice();
+                }
+            });
+
+            $('.delete-btn').on('click', function() {
+                $(this).closest('tr').remove();
+                calculateTotalPrice();
+            });
+
+            $('input[type="checkbox"]').on('change', function() {
+                calculateTotalPrice();
+            });
+
+            function calculateTotalPrice() {
+                var totalPrice = 0;
+                $('input[type="checkbox"]:checked').each(function() {
+                    var row = $(this).closest('tr');
+                    var price = parseFloat(row.find('.product-price').text());
+                    var quantity = parseInt(row.find('input[type="number"]').val());
+                    totalPrice += price * quantity;
+                });
+                $('.total-price span').text(totalPrice.toFixed(2));
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>我的地址</h1>
+        <div class="separator-line"></div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>地址编号</th>
+                    <th>地址详情</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in content %}
+                <tr>
+                    <td>{{ row[0][0] }}</td>
+                    <td>{{ row[0][1] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="add-address-btn">
+            <a href="{{ url_for('clientAddress.addAddress_client') }}">
+                <button class="btn btn-primary">增加新地址</button>
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>
+
