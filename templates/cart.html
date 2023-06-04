@@ -163,17 +163,23 @@
                             <td>
                                 <div class="quantity-input">
                                     <button class="btn btn-default decrement-btn"><a
-                                            href="{{ url_for("clientShoppingcart.modifyShoppingcart",cid=1,cart_id=result.cart_id,flower_name=result.flower_name,flower_id=result.flower_id) }}">-</a>
+                                            href="{{ url_for("clientShoppingcart.modifyShoppingcart"
+                                            ,cid=1,cart_id=result.cart_id,flower_name=result.flower_name,
+                                            flower_id=result.flower_id) }}">-</a>
                                     </button>
                                     <input type="number" value="{{ result.add_flower_num }}" min="1">
                                     <button class="btn btn-default increment-btn"><a
-                                            href="{{ url_for("clientShoppingcart.modifyShoppingcart",cid=2,cart_id=result.cart_id,flower_name=result.flower_name,flower_id=result.flower_id) }}">+</a>
+                                            href="{{ url_for("clientShoppingcart.modifyShoppingcart",
+                                            cid=2,cart_id=result.cart_id,flower_name=result.flower_name,
+                                            flower_id=result.flower_id) }}">+</a>
                                     </button>
                                 </div>
                             </td>
                             <td class="subtotal">{{ result.cart_wholeMoney }}</td>
                             <td>
-                                <a href="{{ url_for("clientShoppingcart.modifyShoppingcart",cid=3,cart_id=result.cart_id,flower_name=result.flower_name,flower_id=result.flower_id) }}"
+                                <a href="{{ url_for("clientShoppingcart.modifyShoppingcart",cid=3,
+                                cart_id=result.cart_id,flower_name=result.flower_name,
+                                flower_id=result.flower_id) }}"
                                    class="delete-btn">删除</a>
                             </td>
                         </tr>

@@ -134,7 +134,8 @@ def addShppingcart(flower_id):
 
 
 
-@bp.route('/modify?<cid>/?cart_id=<cart_id>/?flower_name=<flower_name>/?flower_id=<flower_id>',methods= ['GET','POST'])
+@bp.route('/modify?<cid>/?cart_id=<cart_id>/?flower_name=<flower_name>/?flower_id=<flower_id>'
+    ,methods= ['GET','POST'])
 def modifyShoppingcart(cid,cart_id,flower_name,flower_id):
 
     '''此模块描述当用户进入购物车的页面对于购物车的每一条信息进行  ++/--/删除'''
@@ -145,8 +146,10 @@ def modifyShoppingcart(cid,cart_id,flower_name,flower_id):
             print("你可以开始增加商品选购数量了！\n")
             add_num =getShoppingcart_add_flower_num(cursor,cart_id)+1
             cart_wholeMoney = add_num * shoppingFun.getWholeMoney(cursor,flower_id)
-            dertaAdd = shoppingFun.fun_modifyAddShoppingcart(cursor=cursor, conn=conn, flower_id=flower_id,
-                                                             add_num=add_num, cart_wholeMoney=cart_wholeMoney,
+            dertaAdd = shoppingFun.fun_modifyAddShoppingcart(cursor=cursor, conn=conn,
+                                                             flower_id=flower_id,
+                                                             add_num=add_num,
+                                                             cart_wholeMoney=cart_wholeMoney,
                                                              cart_id=cart_id)
             print("你现在已经成功添加了", dertaAdd, "个商品拉")
             return redirect(url_for("scan.get_shoppingcart"))
@@ -159,15 +162,18 @@ def modifyShoppingcart(cid,cart_id,flower_name,flower_id):
                 print("已经不能再减少了哟！\n")
             else:
                 cart_wholeMoney = dec_num * shoppingFun.getWholeMoney(cursor, flower_id)
-                dertaDec = shoppingFun.fun_modifyDecShoppingcart(cursor=cursor, conn=conn, flower_id=flower_id,
-                                                                 dec_num=dec_num, cart_wholeMoney=cart_wholeMoney,
+                dertaDec = shoppingFun.fun_modifyDecShoppingcart(cursor=cursor, conn=conn,
+                                                                 flower_id=flower_id,
+                                                                 dec_num=dec_num,
+                                                                 cart_wholeMoney=cart_wholeMoney,
                                                                  cart_id=cart_id)
                 print("你现在已经成功减少了", dertaDec, "个商品拉")
             return redirect(url_for("scan.get_shoppingcart"))
 
         case "3":
             print("你可以开始删除购物车信息拉！\n")
-            shoppingFun.fun_modifyDeleShoppingcart(cursor=cursor, conn=conn, cart_id=cart_id, flower_id=flower_id)
+            shoppingFun.fun_modifyDeleShoppingcart(cursor=cursor, conn=conn, cart_id=cart_id,
+                                                   flower_id=flower_id)
             print("你删除了编号为", cart_id, "的购物信息")
             return redirect(url_for("scan.get_shoppingcart"))
 
